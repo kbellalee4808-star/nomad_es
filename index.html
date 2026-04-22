@@ -137,7 +137,7 @@ body{font-family:'Gothic A1','Noto Sans KR',sans-serif;background:var(--sand-50)
 .acc-btn:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
 .acc-l{display:flex;align-items:center;gap:6px}
 .acc-n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;font-size:.7rem;font-weight:800;flex-shrink:0}
-.acc-clic{font-size:.6rem;color:var(--sl400);font-weight:500;margin-left:4px}
+.acc-click{font-size:.6rem;color:var(--sl400);font-weight:500;margin-left:4px}
 .acc-ar{transition:transform .3s;font-size:.7rem}
 .acc-ar.open{transform:rotate(180deg)}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
@@ -526,8 +526,8 @@ body.has-fb{padding-bottom:60px}
 </div>
 
 <!-- PARTNER ESSENTIAL -->
-<button class="acc-btn" onclic="toggleAcc('accPartner')" style="border-left:3px solid #f59e0b;margin-bottom:12px">
-  <span class="acc-l"><span class="acc-n" style="background:rgba(245,158,11,.15);color:#f59e0b;font-size:.8rem">⭐</span>Requisitos del Socio<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn" onclick="toggleAcc('accPartner')" style="border-left:3px solid #f59e0b;margin-bottom:12px">
+  <span class="acc-l"><span class="acc-n" style="background:rgba(245,158,11,.15);color:#f59e0b;font-size:.8rem">⭐</span>Requisitos del Socio<span class="acc-click">(clic)</span></span>
   <span class="acc-ar" id="accPartner-ar">▼</span>
 </button>
 <div class="acc-body" id="accPartner">
@@ -602,8 +602,8 @@ body.has-fb{padding-bottom:60px}
 <!-- ═══ ACCORDIONS ═══ -->
 
 <!-- ① Daily & Monthly Activation -->
-<button class="acc-btn ab1" onclic="toggleAcc('acc1')">
-  <span class="acc-l"><span class="acc-n">①</span>Bono de Activación Diario y Mensual<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab1" onclick="toggleAcc('acc1')">
+  <span class="acc-l"><span class="acc-n">①</span>Bono de Activación Diario y Mensual<span class="acc-click">(clic)</span></span>
   <span><span class="acc-preview" id="prev1">$0</span><span class="acc-ar" id="acc1-ar">▼</span></span>
 </button>
 <div class="acc-body" id="acc1">
@@ -613,9 +613,9 @@ body.has-fb{padding-bottom:60px}
         <div class="twin-badge cb">CLASSIC</div>
         <div class="twin-price">Cuota de activación $100 incl. $200</div>
         <div class="twin-ctr">
-          <button class="twin-b" onclic="tweak('cCnt',-1)">−</button>
+          <button class="twin-b" onclick="tweak('cCnt',-1)">−</button>
           <input type="number" id="cCnt" min="0" value="0" class="twin-v" oninput="updateAll()">
-          <button class="twin-b" onclic="tweak('cCnt',1)">+</button>
+          <button class="twin-b" onclick="tweak('cCnt',1)">+</button>
         </div>
         <div class="twin-lbl">Referidos Directos</div>
         <div class="twin-inst"><span class="inst-tag ct">Instantáneo 10%</span><span class="inst-amt" id="cInc">$0</span></div>
@@ -625,9 +625,9 @@ body.has-fb{padding-bottom:60px}
         <div class="twin-badge pb">PREMIUM</div>
         <div class="twin-price">Cuota de activación $250 incl. $500</div>
         <div class="twin-ctr">
-          <button class="twin-b" onclic="tweak('pCnt',-1)">−</button>
+          <button class="twin-b" onclick="tweak('pCnt',-1)">−</button>
           <input type="number" id="pCnt" min="0" value="0" class="twin-v" oninput="updateAll()">
-          <button class="twin-b" onclic="tweak('pCnt',1)">+</button>
+          <button class="twin-b" onclick="tweak('pCnt',1)">+</button>
         </div>
         <div class="twin-lbl">Referidos Directos</div>
         <div class="twin-inst"><span class="inst-tag pt">Instantáneo 10%</span><span class="inst-amt" id="pInc">$0</span></div>
@@ -635,7 +635,7 @@ body.has-fb{padding-bottom:60px}
       </div>
     </div>
     <!-- DAB Total -->
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('dabInfo')" style="margin-top:10px">💡 ¿Qué es el Bono de Activación Diario? <span class="acc-clic">(clic)</span> <span class="acc-ar" id="dabInfo-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('dabInfo')" style="margin-top:10px">💡 ¿Qué es el Bono de Activación Diario? <span class="acc-click">(clic)</span> <span class="acc-ar" id="dabInfo-ar">▼</span></button>
     <div class="acc-body" id="dabInfo">
       <div class="caut" style="border-left-color:var(--blue-400)"><strong>⚡ Bono de Activación Diario (DAB)</strong><br>Recibes <strong>10%</strong> de ventas directoas en <strong>24 horas</strong>.<br>Classic $200 × 10% = <strong>$20</strong> / Premium $500 × 10% = <strong>$50</strong></div>
     </div>
@@ -656,7 +656,7 @@ body.has-fb{padding-bottom:60px}
         <span class="mab-total" id="mabTotal">$0</span>
       </div>
       <p class="mab-desc">¡Activa 3+ miembros y el bono por persona aumenta!<br>💡 Ayuda a tu equipo a crecer para mayores ingresos.</p>
-      <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('mabTbl')">📊 Tabla de Tarifas Mensuales <span class="acc-clic">(clic)</span> <span class="acc-ar" id="mabTbl-ar">▼</span></button>
+      <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('mabTbl')">📊 Tabla de Tarifas Mensuales <span class="acc-click">(clic)</span> <span class="acc-ar" id="mabTbl-ar">▼</span></button>
       <div class="acc-body" id="mabTbl">
         <table class="mab-ref">
           <thead><tr><th class="mab-th-p">Plan</th><th class="mab-th-t" id="mth1">3-4 Activos</th><th class="mab-th-t" id="mth2">5-9 Activos</th><th class="mab-th-t" id="mth3">10+</th></tr></thead>
@@ -676,13 +676,13 @@ body.has-fb{padding-bottom:60px}
         </div>
       </div>
     </div>
-    <button class="reset-btn" onclic="resetAcc('acc1')">🔄 Reiniciar</button>
+    <button class="reset-btn" onclick="resetAcc('acc1')">🔄 Reiniciar</button>
   </div>
 </div>
 
 <!-- ② Weekly & Equiparación Mensual -->
-<button class="acc-btn ab2" onclic="toggleAcc('acc2')">
-  <span class="acc-l"><span class="acc-n">②</span>Bono de Equiparación Semanal y Mensual<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab2" onclick="toggleAcc('acc2')">
+  <span class="acc-l"><span class="acc-n">②</span>Bono de Equiparación Semanal y Mensual<span class="acc-click">(clic)</span></span>
   <span><span class="acc-preview" id="prev2">$0</span><span class="acc-ar" id="acc2-ar">▼</span></span>
 </button>
 <div class="acc-body" id="acc2">
@@ -760,17 +760,17 @@ body.has-fb{padding-bottom:60px}
       <div class="mr-amt" id="matchAmt">$0</div>
       
     </div>
-    <button class="reset-btn" onclic="resetAcc('acc2')">🔄 Reiniciar</button>
+    <button class="reset-btn" onclick="resetAcc('acc2')">🔄 Reiniciar</button>
   </div>
 </div>
 
-<button class="acc-btn ab3" onclic="toggleAcc('acc3')">
-  <span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab3" onclick="toggleAcc('acc3')">
+  <span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo<span class="acc-click">(clic)</span></span>
   <span><span class="acc-preview" id="prev3">$0</span><span class="acc-ar" id="acc3-ar">▼</span></span>
 </button>
 <div class="acc-body" id="acc3">
   <div class="acc-inner">
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('rankTbl')">📊 Tabla de Rangos y Recompensas <span class="acc-clic">(clic)</span> <span class="acc-ar" id="rankTbl-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('rankTbl')">📊 Tabla de Rangos y Recompensas <span class="acc-click">(clic)</span> <span class="acc-ar" id="rankTbl-ar">▼</span></button>
     <div class="acc-body" id="rankTbl"><div class="rank-tbl-scroll"><table class="rank-tbl"><thead><tr><th>Rank</th><th class="cp">Producción Calificada</th><th>Límite Pierna</th><th class="ca">Vol. Activación</th><th class="cb">Bonus</th></tr></thead><tbody id="rankBody"></tbody></table></div></div>
     <div class="rank-msg" id="rankMsg" style="background:var(--blue-100);color:var(--blue-700)"></div>
     <!-- Leg inputs (shared with ④) -->
@@ -780,7 +780,7 @@ body.has-fb{padding-bottom:60px}
       <div class="leg-r"><span class="leg-l">Leg 2</span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div></div>
       <div class="leg-r"><span class="leg-l">Leg 3</span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div></div>
     </div>
-    <button class="btn-add" onclic="addLeg()">+ Agregar Pierna</button>
+    <button class="btn-add" onclick="addLeg()">+ Agregar Pierna</button>
     <div class="leg-total" id="legTotal">
       <span class="leg-total-l">Total Ventas por Pierna</span>
       <span class="leg-total-v" id="legTotalV">$0</span>
@@ -809,19 +809,19 @@ body.has-fb{padding-bottom:60px}
       <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="leadRank">Rank Aún no</div>
       <div style="font-size:.62rem;color:var(--sl400);margin-top:2px" id="leadElig"></div>
     </div>
-    <button class="reset-btn" onclic="resetAcc('acc3')">🔄 Reiniciar</button>
+    <button class="reset-btn" onclick="resetAcc('acc3')">🔄 Reiniciar</button>
   </div>
 </div>
 
 <!-- ④ Bono Recurrente -->
-<button class="acc-btn ab4" onclic="toggleAcc('acc4')">
-  <span class="acc-l"><span class="acc-n">④</span>Bono Recurrente<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab4" onclick="toggleAcc('acc4')">
+  <span class="acc-l"><span class="acc-n">④</span>Bono Recurrente<span class="acc-click">(clic)</span></span>
   <span><span class="acc-preview" id="prev4">$0</span><span class="acc-ar" id="acc4-ar">▼</span></span>
 </button>
 <div class="acc-body" id="acc4">
   <div class="acc-inner">
     <p style="font-size:.72rem;color:var(--sl600);margin-bottom:8px">Suscripción × multiplicador = Bono Recurrente (límite escalonado)</p>
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('rqpTbl')">📊 Tier Límite Pierna Table <span class="acc-clic">(clic)</span> <span class="acc-ar" id="rqpTbl-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('rqpTbl')">📊 Tier Límite Pierna Table <span class="acc-click">(clic)</span> <span class="acc-ar" id="rqpTbl-ar">▼</span></button>
     <div class="acc-body" id="rqpTbl">
       <table class="bb-tbl">
         <thead><tr><th class="bb-th-v">Total RQP Tier</th><th class="bb-th-p">máx. por pierna</th></tr></thead>
@@ -837,7 +837,7 @@ body.has-fb{padding-bottom:60px}
         </tbody>
       </table>
     </div>
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('multiTbl')" style="margin-top:4px">💰 Tabla Multiplicadores <span class="acc-clic">(clic)</span> <span class="acc-ar" id="multiTbl-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('multiTbl')" style="margin-top:4px">💰 Tabla Multiplicadores <span class="acc-click">(clic)</span> <span class="acc-ar" id="multiTbl-ar">▼</span></button>
     <div class="acc-body" id="multiTbl">
       <table class="bb-tbl">
         <thead><tr><th class="bb-th-v">Bono Base del Constructor</th><th class="bb-th-p">Multiplicador (por $100)</th></tr></thead>
@@ -853,7 +853,7 @@ body.has-fb{padding-bottom:60px}
     </div>
     <div style="margin-top:8px;padding:6px 10px;background:var(--blue-100);border-radius:6px;font-size:.68rem;font-weight:600;color:var(--blue-700)" id="recMultiInfo">Multiplicador Actual: por $100 $5 (Base)</div>
     <p style="font-size:.68rem;color:var(--sl500);margin:8px 0">Ingresa ventas recurrentes por pierna.</p>
-    <button class="import-btn" onclic="importLegs()">📥 Importar de Piernas de Liderazgo</button>
+    <button class="import-btn" onclick="importLegs()">📥 Importar de Piernas de Liderazgo</button>
     <div class="fg"><label>Recurrente Directo ($)</label><input type="number" id="myRec" min="0" value="0" oninput="updateAll()"></div>
     <div id="recLegs" style="margin-top:6px"></div>
     <div class="leg-feedback" id="rqpFB" style="margin-top:8px"></div>
@@ -863,13 +863,13 @@ body.has-fb{padding-bottom:60px}
       
       <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="rqpInfo"></div>
     </div>
-    <button class="reset-btn" onclic="resetAcc('acc4')">🔄 Reiniciar</button>
+    <button class="reset-btn" onclick="resetAcc('acc4')">🔄 Reiniciar</button>
   </div>
 </div>
 
 <!-- ⑤ Base Constructor -->
-<button class="acc-btn ab5" onclic="toggleAcc('acc5')">
-  <span class="acc-l"><span class="acc-n">⑤</span>Bono Base del Constructor<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab5" onclick="toggleAcc('acc5')">
+  <span class="acc-l"><span class="acc-n">⑤</span>Bono Base del Constructor<span class="acc-click">(clic)</span></span>
   <span><span class="acc-preview" id="prev5">$0</span><span class="acc-ar" id="acc5-ar">▼</span></span>
 </button>
 <div class="acc-body" id="acc5">
@@ -890,7 +890,7 @@ body.has-fb{padding-bottom:60px}
       
       <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="bbInfo"></div>
     </div>
-    <button class="acc-btn mab-tbl-btn" style="margin-top:10px" onclic="toggleAcc('bbTbl')">📊 Tabla de Tarifas <span class="acc-clic">(clic)</span> <span class="acc-ar" id="bbTbl-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" style="margin-top:10px" onclick="toggleAcc('bbTbl')">📊 Tabla de Tarifas <span class="acc-click">(clic)</span> <span class="acc-ar" id="bbTbl-ar">▼</span></button>
     <div class="acc-body" id="bbTbl">
       <table class="bb-tbl">
         <thead><tr><th class="bb-th-v">Nuevas Ventas del Mes</th><th class="bb-th-p">Bonus Rate</th></tr></thead>
@@ -901,12 +901,12 @@ body.has-fb{padding-bottom:60px}
         </tbody>
       </table>
     </div>
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('qbiInfo')" style="margin-top:4px">ℹ️ QBI y Detalles <span class="acc-clic">(clic)</span> <span class="acc-ar" id="qbiInfo-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('qbiInfo')" style="margin-top:4px">ℹ️ QBI y Detalles <span class="acc-click">(clic)</span> <span class="acc-ar" id="qbiInfo-ar">▼</span></button>
     <div class="acc-body" id="qbiInfo">
       <div class="caut"><strong>📌 QBI (Índice de Calidad de Negocio)</strong> — QBI 65%+ = 100% Bonus. Menos del 65% = solo QBI%.<br>Ex: Bonus $10,000 / QBI 60% → $6,000 paid</div>
       <div class="caut"><strong>📌 Alcance Base Constructor</strong> — Solo ventas de rango inferior. ID+ excluidos.</div>
     </div>
-    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('wwDiag')" style="margin-top:4px">🤝 ¿Por qué es Ganar-Ganar? <span class="acc-clic">(clic)</span> <span class="acc-ar" id="wwDiag-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn" onclick="toggleAcc('wwDiag')" style="margin-top:4px">🤝 ¿Por qué es Ganar-Ganar? <span class="acc-click">(clic)</span> <span class="acc-ar" id="wwDiag-ar">▼</span></button>
     <div class="acc-body" id="wwDiag">
       <div class="ww">
         <div class="ww-header">
@@ -939,13 +939,13 @@ body.has-fb{padding-bottom:60px}
         <div class="ww-msg">💪 ¡Crezcan juntos, todos ganan!</div>
       </div>
     </div>
-    <button class="reset-btn" onclic="resetAcc('acc5')">🔄 Reiniciar</button>
+    <button class="reset-btn" onclick="resetAcc('acc5')">🔄 Reiniciar</button>
   </div>
 </div>
 
 <!-- 🎁 Incentive -->
-<button class="acc-btn ab6" onclic="toggleAcc('acc6')">
-  <span class="acc-l"><span class="acc-n">🎁</span>Guía de Incentivos<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn ab6" onclick="toggleAcc('acc6')">
+  <span class="acc-l"><span class="acc-n">🎁</span>Guía de Incentivos<span class="acc-click">(clic)</span></span>
   <span class="acc-ar" id="acc6-ar">▼</span>
 </button>
 <div class="acc-body" id="acc6">
@@ -978,11 +978,11 @@ body.has-fb{padding-bottom:60px}
           <div class="inc-de">MD+ con <strong>3 meses consecutivos</strong> Bono de Liderazgo → ¡Elegible para reservar crucero!</div>
           <div class="elite-progress">
             <div class="elite-months">
-              <button class="elite-month" id="em1" onclic="toggleElite(1)"><span class="em-num">1</span><span class="em-label">Mes 1</span></button>
+              <button class="elite-month" id="em1" onclick="toggleElite(1)"><span class="em-num">1</span><span class="em-label">Mes 1</span></button>
               <span class="elite-arrow">→</span>
-              <button class="elite-month" id="em2" onclic="toggleElite(2)"><span class="em-num">2</span><span class="em-label">Mes 2</span></button>
+              <button class="elite-month" id="em2" onclick="toggleElite(2)"><span class="em-num">2</span><span class="em-label">Mes 2</span></button>
               <span class="elite-arrow">→</span>
-              <button class="elite-month" id="em3" onclic="toggleElite(3)"><span class="em-num">3</span><span class="em-label">Mes 3</span></button>
+              <button class="elite-month" id="em3" onclick="toggleElite(3)"><span class="em-num">3</span><span class="em-label">Mes 3</span></button>
             </div>
             <div class="elite-bar-wrap"><div class="elite-bar-fill" id="eliteBar" style="width:0%"></div></div>
             <div class="elite-msg" id="eliteMsg">¡Toca los meses que recibiste Bono de Liderazgo!</div>
@@ -990,10 +990,10 @@ body.has-fb{padding-bottom:60px}
           <div class="elite-dest" id="eliteDest" style="display:none">
             <div class="elite-dest-title">🌊 ¿A dónde te gustaría ir?</div>
             <div class="elite-dest-btns">
-              <button class="dest-btn" onclic="pickDest(this,'🌺 Hawái')">🌺<br><span>Hawaii</span></button>
-              <button class="dest-btn" onclic="pickDest(this,'🧊 Alaska')">🧊<br><span>Alaska</span></button>
-              <button class="dest-btn" onclic="pickDest(this,'🏛️ Mediterráneo')">🏛️<br><span>Mediterranean</span></button>
-              <button class="dest-btn" onclic="pickDest(this,'🏝️ Caribe')">🏝️<br><span>Caribbean</span></button>
+              <button class="dest-btn" onclick="pickDest(this,'🌺 Hawái')">🌺<br><span>Hawaii</span></button>
+              <button class="dest-btn" onclick="pickDest(this,'🧊 Alaska')">🧊<br><span>Alaska</span></button>
+              <button class="dest-btn" onclick="pickDest(this,'🏛️ Mediterráneo')">🏛️<br><span>Mediterranean</span></button>
+              <button class="dest-btn" onclick="pickDest(this,'🏝️ Caribe')">🏝️<br><span>Caribbean</span></button>
             </div>
             <div class="elite-congrats" id="eliteCongrats"></div>
           </div>
@@ -1008,33 +1008,33 @@ body.has-fb{padding-bottom:60px}
 </div>
 
 <!-- Summary -->
-<button class="acc-btn" onclic="toggleAcc('accSummary')" style="border-left:3px solid var(--sl400)">
-  <span class="acc-l"><span class="acc-n" style="background:var(--sl100);color:var(--sl600);font-size:.7rem">📋</span>Resumen de 5 Bonos<span class="acc-clic">(clic)</span></span>
+<button class="acc-btn" onclick="toggleAcc('accSummary')" style="border-left:3px solid var(--sl400)">
+  <span class="acc-l"><span class="acc-n" style="background:var(--sl100);color:var(--sl600);font-size:.7rem">📋</span>Resumen de 5 Bonos<span class="acc-click">(clic)</span></span>
   <span class="acc-ar" id="accSummary-ar">▼</span>
 </button>
 <div class="acc-body" id="accSummary">
   <div class="acc-inner">
-    <button class="acc-btn mab-tbl-btn ab1" onclic="toggleAcc('g1')"><span class="acc-l"><span class="acc-n">①</span>Daily & Monthly Activation</span><span class="acc-ar" id="g1-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn ab1" onclick="toggleAcc('g1')"><span class="acc-l"><span class="acc-n">①</span>Daily & Monthly Activation</span><span class="acc-ar" id="g1-ar">▼</span></button>
     <div class="acc-body" id="g1"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
       <strong>Daily (DAB)</strong>: Classic $20 / Premium $50 — Paid within 24 horas<br>
       <strong>Monthly (MAB)</strong>: 3+ miembros activados = aumento de bono por persona (Classic $20~$40, Premium $50~$100)
     </div></div>
-    <button class="acc-btn mab-tbl-btn ab2" onclic="toggleAcc('g2')"><span class="acc-l"><span class="acc-n">②</span>Weekly & Equiparación Mensual</span><span class="acc-ar" id="g2-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn ab2" onclick="toggleAcc('g2')"><span class="acc-l"><span class="acc-n">②</span>Weekly & Equiparación Mensual</span><span class="acc-ar" id="g2-ar">▼</span></button>
     <div class="acc-body" id="g2"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
       Weekly: Team $600 + My directo $200 → Team Bono Diario 100% Equiparación (paid Monday)<br>
       Week with 8th: previous Monthly Bonus also matched!
     </div></div>
-    <button class="acc-btn mab-tbl-btn ab3" onclic="toggleAcc('g3')"><span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo</span><span class="acc-ar" id="g3-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn ab3" onclick="toggleAcc('g3')"><span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo</span><span class="acc-ar" id="g3-ar">▼</span></button>
     <div class="acc-body" id="g3"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
       Ventas del equipo based rank = fixed bonus (MD $300 ~ RABOD $305,000)<br>
       Regla 40%: Máx. 40% de un equipo. Vol. Activación condition requeridos.
     </div></div>
-    <button class="acc-btn mab-tbl-btn ab4" onclic="toggleAcc('g4')"><span class="acc-l"><span class="acc-n">④</span>Bono Recurrente</span><span class="acc-ar" id="g4-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn ab4" onclick="toggleAcc('g4')"><span class="acc-l"><span class="acc-n">④</span>Bono Recurrente</span><span class="acc-ar" id="g4-ar">▼</span></button>
     <div class="acc-body" id="g4"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
       Team subscription RQP por $100 = $5 paid. Tiered leg cap applied.<br>
       Higher total RQP = higher leg cap = massive ¡aumento de ingresos!
     </div></div>
-    <button class="acc-btn mab-tbl-btn ab5" onclic="toggleAcc('g5')"><span class="acc-l"><span class="acc-n">⑤</span>Base Constructor</span><span class="acc-ar" id="g5-ar">▼</span></button>
+    <button class="acc-btn mab-tbl-btn ab5" onclick="toggleAcc('g5')"><span class="acc-l"><span class="acc-n">⑤</span>Base Constructor</span><span class="acc-ar" id="g5-ar">▼</span></button>
     <div class="acc-body" id="g5"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
       New sales this month $5K+ → 5% / $10K+ → 10% / $30K+ → 30%<br>
       QBI 65%  = 100% paid. Each rank earns separately (Win-Win!)
@@ -1125,7 +1125,7 @@ function mabPP(type,cnt){
 // ── ADD LEG ──
 let legN=3;
 function addLeg(){legN++;const c=$('legC');const r=document.createElement('div');r.className='leg-r';
-r.innerHTML=`<span class="leg-l">Leg ${legN} <button class="btn-rm" onclic="rmLeg(this)">✕</button></span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div>`;
+r.innerHTML=`<span class="leg-l">Leg ${legN} <button class="btn-rm" onclick="rmLeg(this)">✕</button></span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div>`;
 c.appendChild(r)}
 function rmLeg(btn){if(document.querySeleccionarorAll('.leg-r').length<=3)return alert('Mínimo 3 piernas requeridas');btn.closest('.leg-r').remove();reIdx()}
 function reIdx(){document.querySeleccionarorAll('.leg-r').forEach((r,i)=>{const l=r.querySelector('.leg-l');if(l)l.childNodes[0].textContent='Leg '+(i+1)+' '});legN=document.querySelectorAll('.leg-r').length}
@@ -1414,21 +1414,21 @@ function updateAll(){
     fastEl.classList.remove('done');
   }else if(joinVal){
     const [jy,jm]=joinVal.split('-').map(Number);
-    const fecha límite=new Date(jm===12?jy+1:jy,jm===12?1:jm+1,0); // fin del próximo mes
+    const deadline=new Date(jm===12?jy+1:jy,jm===12?1:jm+1,0); // fin del próximo mes
     const now=new Date();
-    if(now<=fecha límite){
+    if(now<=deadline){
       if(directoProd>=3000){
         fastBonus=200;
         fastSt.textContent='🎉 Fast Start ¡Logrado! $200 Bonus added!';
         fastSt.className='inc-status achieved';
         fastEl.classList.add('done');
       }else{
-        fastSt.textContent='⏳ Necesitas $'+(3000-directoProd)+' more ('+fecha límite.toLocaleDateString('es-ES')+'  fecha límite)';
+        fastSt.textContent='⏳ Necesitas $'+(3000-directoProd)+' more ('+deadline.toLocaleDateString('es-ES')+'  deadline)';
         fastSt.className='inc-status not-yet';
         fastEl.classList.remove('done');
       }
     }else{
-      fastSt.textContent='⏰ Expirado ('+fecha límite.toLocaleDateString('es-ES')+')';
+      fastSt.textContent='⏰ Expirado ('+deadline.toLocaleDateString('es-ES')+')';
       fastSt.className='inc-status not-yet';
       fastEl.classList.remove('done');
     }
