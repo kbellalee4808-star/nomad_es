@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nomad Road Map — Simulador de Ingresos Nómada Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-100:#E8F4FD;--blue-200:#C5E4F7;--blue-300:#87CEEB;--blue-400:#5BB8E0;
+  --blue-500:#3AA0D1;--blue-600:#2980B9;--blue-700:#1A5F8A;--blue-800:#0E3D5C;
+  --sand-50:#FEFCF9;--sand-100:#FDF8F0;--sand-200:#F5EDE0;
+  --gold-400:#D4A853;--gold-500:#C49A3C;
+  --coral:#E8846B;--mint:#6BC5B0;--red:#D94040;
+  --sl50:#F8FAFC;--sl100:#F1F5F9;--sl200:#E2E8F0;--sl300:#CBD5E1;
+  --sl400:#94A3B8;--sl500:#64748B;--sl600:#475569;--sl700:#334155;--sl800:#1E293B;
+  --r:14px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Gothic A1','Noto Sans KR',sans-serif;background:var(--sand-50);color:var(--sl800);line-height:1.6;font-weight:500;overflow-x:hidden}
+
+/* HERO */
+.hero{position:relative;padding:32px 20px 64px;text-align:center;overflow:hidden;
+  background:linear-gradient(135deg,rgba(14,61,92,.85),rgba(26,95,138,.7),rgba(135,206,235,.6)),
+  url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1200&q=80') center/cover no-repeat}
+.hero h1{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;color:#fff;letter-spacing:-.02em}
+.hero h1 span{color:var(--gold-400)}
+.hero .tagline{font-size:.85rem;color:var(--blue-200);font-weight:400;margin-top:2px}
+.hero .sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:8px}
+.wave-div{margin-top:-50px;position:relative;z-index:2}
+.wave-div svg{display:block;width:100%;height:50px}
+
+/* CONTAINER */
+.app{max-width:960px;margin:0 auto;padding:0 16px 60px}
+
+/* BACKOFFICE BTN */
+.bo-btn{display:block;text-align:center;padding:11px 16px;margin-bottom:12px;
+  background:linear-gradient(135deg,var(--blue-700),var(--blue-800));color:#fff;text-decoration:none;
+  border-radius:10px;font-size:.82rem;font-weight:700;box-shadow:0 3px 12px rgba(14,61,92,.2);transition:all .3s}
+.bo-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(14,61,92,.3)}
+
+/* SECTION CARD */
+.card{background:#fff;border-radius:var(--r);box-shadow:0 3px 12px rgba(14,61,92,.06);
+  padding:20px 18px;margin-bottom:12px;border:1px solid var(--sl100)}
+.card h2{font-size:1.15rem;font-weight:800;color:var(--blue-700);margin-bottom:3px;display:flex;align-items:center;gap:7px}
+.card h2 .ic{width:26px;height:26px;background:var(--blue-100);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.card .desc{font-size:.72rem;color:var(--sl400);margin-bottom:12px}
+
+/* YOUTUBE */
+.yt-wrap{margin-bottom:12px;border-radius:var(--r);overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.yt-wrap iframe{width:100%;aspect-ratio:16/9;border:none;display:block}
+
+/* GOAL */
+.goal-card{background:linear-gradient(135deg,#fff,#F0F7FB);border:1.5px solid var(--blue-200)}
+.goal-inner{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.goal-sub{font-size:.68rem;color:var(--sl400)}
+.goal-right{text-align:right;flex-shrink:0}
+.goal-row{display:flex;align-items:center;gap:5px;justify-content:flex-end;flex-wrap:wrap}
+.goal-month{font-size:.78rem;font-weight:700;color:var(--sl500)}
+.goal-field{display:flex;align-items:center;background:#fff;border:2px solid var(--blue-300);border-radius:10px;overflow:hidden;transition:border-color .2s}
+.goal-field:focus-within{border-color:var(--blue-500);box-shadow:0 0 0 3px rgba(135,206,235,.2)}
+.goal-field input{width:80px;padding:8px 10px;border:none;outline:none;font-size:1.1rem;font-family:inherit;font-weight:800;color:var(--blue-700);background:transparent;-moz-appearance:textfield}
+.goal-field input::-webkit-outer-spin-button,.goal-field input::-webkit-inner-spin-button{-webkit-appearance:none}
+.goal-suf{padding:8px 10px 8px 0;font-size:.82rem;font-weight:700;color:var(--blue-600)}
+.goal-hint{font-size:.58rem;color:var(--sl400);line-height:1.3}
+.goal-usd{font-size:.72rem;color:var(--sl400);margin-top:3px}
+.goal-fx{font-size:.62rem;color:var(--sl400)}
+.goal-re{font-size:.6rem;color:var(--red);margin-top:3px;font-weight:700}
+.fx-wrap{display:flex;align-items:center;gap:6px;margin-top:6px;justify-content:flex-end}
+.fx-lbl{font-size:.65rem;font-weight:600;color:var(--sl500)}
+.fx-field{display:flex;align-items:center;background:var(--sl50);border:1.5px solid var(--sl200);border-radius:6px;overflow:hidden}
+.fx-field:focus-within{border-color:var(--blue-400)}
+.fx-pre{padding:4px 6px;font-size:.72rem;font-weight:600;color:var(--blue-600);background:var(--blue-100)}
+.fx-field input{width:60px;padding:4px 6px;border:none;outline:none;font-size:.78rem;font-weight:600;color:var(--sl700);background:transparent;-moz-appearance:textfield}
+.fx-field input::-webkit-outer-spin-button,.fx-field input::-webkit-inner-spin-button{-webkit-appearance:none}
+
+/* BUILDING */
+/* Partner Essential */
+.partner-btn{display:block;text-align:center;padding:14px 20px;margin-bottom:12px;background:linear-gradient(135deg,#f59e0b,#f97316);color:#fff;text-decoration:none;border-radius:12px;font-size:.88rem;font-weight:800;font-family:inherit;box-shadow:0 4px 16px rgba(245,158,11,.25);transition:all .3s;letter-spacing:.02em}
+.partner-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(245,158,11,.35)}
+.bld-wrap{padding:14px;background:var(--sl50);border-radius:var(--rs);border:1px solid var(--sl100);margin-bottom:12px}
+.bld-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.bld-title{font-size:.72rem;font-weight:600;color:var(--sl500)}
+.bld-floors{font-size:.78rem;font-weight:700;color:var(--blue-600)}
+.bld-layout{display:flex;gap:12px;align-items:flex-end}
+.bld-profile{display:flex;flex-directoion:column;align-items:center;gap:6px;flex-shrink:0;align-self:center}
+.prof-title{font-size:.72rem;font-weight:800;color:#B8860B;background:linear-gradient(135deg,#FFF3D6,#FFE8B0);padding:3px 12px;border-radius:10px;border:1.5px solid rgba(184,134,11,.2)}
+.prof-frame{width:100px;height:120px;border-radius:50%;border:3px solid var(--blue-300);background:linear-gradient(135deg,#fff,#F0F7FB);overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;box-shadow:0 3px 12px rgba(135,206,235,.2)}
+.prof-frame:hover{border-color:var(--blue-500);box-shadow:0 4px 16px rgba(135,206,235,.35)}
+.prof-frame img{width:100%;height:100%;object-fit:cover;display:none}
+.prof-frame img.has{display:block}
+.prof-ph{display:flex;flex-directoion:column;align-items:center;gap:2px;color:var(--blue-300)}
+.prof-ph.hid{display:none}
+.prof-plus{font-size:1.6rem;font-weight:300;line-height:1}
+.prof-hint{font-size:.55rem;font-weight:500}
+.prof-name{font-size:.68rem;font-weight:600;color:var(--sl600);text-align:center;min-width:50px;padding:2px 6px;border-radius:4px;border:1px solid transparent;outline:none}
+.prof-name:hover{border-color:var(--sl200)}
+.prof-name:focus{border-color:var(--blue-300);background:#fff}
+.prof-name:empty::before{content:attr(data-placeholder);color:var(--sl300);font-weight:400}
+.bld-scene{position:relative;height:240px;flex:1;min-width:0;background:linear-gradient(180deg,#D6EEFF,#E8F4FD 50%,#F0F7FB);border-radius:10px;overflow:hidden;display:flex;flex-directoion:column;justify-content:flex-end;align-items:center}
+.cloud{position:absolute;background:rgba(255,255,255,.7);border-radius:50px;height:16px}
+.cloud::before{content:'';position:absolute;background:inherit;border-radius:50%;width:22px;height:22px;top:-11px;left:12px}
+.cloud::after{content:'';position:absolute;background:inherit;border-radius:50%;width:16px;height:16px;top:-6px;left:30px}
+.cl1{width:56px;top:16px;left:8%;animation:cdrift 22s linear infinite}
+.cl2{width:44px;top:32px;left:55%;animation:cdrift 28s linear infinite reverse;opacity:.5}
+.cl3{width:38px;top:22px;left:78%;animation:cdrift 24s linear infinite;animation-delay:-6s;opacity:.45}
+@keyframes cdrift{from{transform:translateX(0)}to{transform:translateX(-160px)}}
+.bld-found{width:130px;height:24px;background:linear-gradient(180deg,var(--blue-700),var(--blue-800));border-radius:3px 3px 0 0;display:flex;align-items:center;justify-content:center;position:relative;z-index:5;flex-shrink:0}
+.bld-found-txt{font-size:.62rem;font-weight:800;color:rgba(255,255,255,.9);letter-spacing:.06em}
+.bld-ground{width:100%;height:14px;background:linear-gradient(180deg,#8CB369,#6A994E);flex-shrink:0;z-index:4}
+.bld-tower{width:110px;display:flex;flex-directoion:column-reverse;position:relative;z-index:5;flex-shrink:0}
+.bld-roof{width:110px;height:0;transition:height .4s}
+.bld-roof.vis{height:12px;background:var(--sl500);border-radius:3px 3px 0 0}
+.bld-roof.vis::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:60%;height:5px;background:var(--sl400);border-radius:3px 3px 0 0}
+.bf{width:110px;height:22px;position:relative;display:flex;align-items:center;border-left:2px solid rgba(0,0,0,.08);border-right:2px solid rgba(0,0,0,.08);animation:fbuild .4s cubic-bezier(.34,1.56,.64,1) both}
+.bf.cf{background:linear-gradient(90deg,var(--blue-300),var(--blue-400))}
+.bf.pf{background:linear-gradient(90deg,var(--gold-400),#E0B85C)}
+.bf-w{display:flex;gap:3px;justify-content:center;width:100%;padding:0 5px}
+.bw{width:18px;height:13px;background:rgba(255,255,255,.55);border-radius:2px 2px 0 0;border-bottom:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:8px;overflow:hidden}
+.bf-n{position:absolute;right:-22px;font-size:.45rem;font-weight:600;color:var(--sl400)}
+@keyframes fbuild{0%{transform:scaleY(0) translateY(8px);opacity:0}60%{transform:scaleY(1.06);opacity:1}100%{transform:scaleY(1);opacity:1}}
+.bld-flag{position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-directoion:column;align-items:center;opacity:0;transition:opacity .5s;pointer-events:none}
+.bld-flag.vis{opacity:1}
+.flag-pole{width:2px;height:24px;background:var(--sl500);border-radius:2px}
+.flag-cloth{position:absolute;top:2px;left:4px;background:linear-gradient(135deg,#FF6B6B,#FF8E53);color:#fff;font-size:.58rem;font-weight:700;padding:2px 8px;border-radius:0 4px 4px 0;white-space:nowrap;animation:fwave 2s ease-in-out infinite;transform-origin:left}
+@keyframes fwave{0%,100%{transform:rotate(0) scaleX(1)}25%{transform:rotate(-3deg) scaleX(.96)}75%{transform:rotate(2deg) scaleX(1.02)}}
+.bld-empty{text-align:center;padding:30px 0;color:var(--sl300);font-size:.75rem;z-index:5;position:relative}
+.bld-empty-ic{font-size:1.6rem;margin-bottom:6px;display:block}
+.bld-labels{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:.65rem;color:var(--sl500)}
+.bl-i{display:flex;align-items:center;gap:4px}
+.bl-d{width:8px;height:8px;border-radius:2px}
+.bl-c{background:var(--blue-400)}.bl-p{background:var(--gold-400)}
+
+/* ACCORDION */
+.acc-btn{width:100%;padding:12px 14px;background:var(--sl50);border:1.5px solid var(--sl200);border-radius:var(--rs);font-size:.82rem;font-weight:700;color:var(--sl600);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:all .2s;font-family:inherit;margin-bottom:6px}
+.acc-btn:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
+.acc-l{display:flex;align-items:center;gap:6px}
+.acc-n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;font-size:.7rem;font-weight:800;flex-shrink:0}
+.acc-clic{font-size:.6rem;color:var(--sl400);font-weight:500;margin-left:4px}
+.acc-ar{transition:transform .3s;font-size:.7rem}
+.acc-ar.open{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.acc-body.open{max-height:8000px}
+.acc-inner{padding:14px 4px 10px}
+/* Accent colors */
+.ab1{border-left:3px solid var(--blue-400)}.ab1 .acc-n{background:var(--blue-100);color:var(--blue-600)}
+.ab2{border-left:3px solid var(--mint)}.ab2 .acc-n{background:#E8F8F0;color:#1A7A5A}
+.ab3{border-left:3px solid var(--gold-400)}.ab3 .acc-n{background:#FFF3D6;color:#A07D2E}
+.ab4{border-left:3px solid var(--coral)}.ab4 .acc-n{background:#FFF0ED;color:#C45A3C}
+.ab5{border-left:3px solid #9B59B6}.ab5 .acc-n{background:#F3E8F9;color:#7B3FA0}
+.ab6{border-left:3px solid #E87C00}.ab6 .acc-n{background:#FFF3E0;color:#E87C00;font-size:.8rem}
+.acc-preview{font-size:.82rem;font-weight:700;color:var(--blue-600);margin-left:auto;margin-right:8px}
+/* Reiniciar button */
+.reset-btn{display:inline-flex;align-items:center;gap:3px;padding:4px 10px;background:var(--sl100);color:var(--sl400);border:1px solid var(--sl200);border-radius:5px;font-size:.6rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;margin-top:8px}
+.reset-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+.import-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 14px;background:var(--blue-100);color:var(--blue-600);border:1.5px solid var(--blue-300);border-radius:var(--rs);font-size:.72rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;margin-bottom:8px}
+.import-btn:hover{background:var(--blue-200);border-color:var(--blue-500)}
+/* Motivational card */
+.moti-card{padding:28px 24px;background:linear-gradient(135deg,#0E3D5C,#1A5F8A,#3AA0D1);border-radius:var(--r);color:#fff;text-align:center;margin-top:20px;position:relative;overflow:hidden}
+.moti-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:rgba(255,255,255,.05);border-radius:50%}
+.moti-card::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;background:rgba(212,168,83,.08);border-radius:50%}
+.moti-emoji{font-size:2rem;margin-bottom:8px}
+.moti-quote{font-size:.92rem;font-weight:700;line-height:1.6;margin-bottom:6px;position:relative;z-index:1}
+.moti-author{font-size:.68rem;color:var(--blue-200);position:relative;z-index:1}
+.moti-sub{font-size:.62rem;color:rgba(255,255,255,.4);margin-top:10px;position:relative;z-index:1}
+
+/* TWIN CARDS */
+.twin-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.twin{background:var(--sand-100);border:2px solid var(--sand-200);border-radius:var(--r);padding:16px 10px 14px;text-align:center;position:relative;transition:all .3s}
+.twin:hover,.twin:focus-within{border-color:var(--blue-300)}
+.twin-badge{display:inline-block;padding:2px 12px;border-radius:50px;font-size:.65rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.twin-badge.cb{background:#1A6FB5;color:#fff}
+.twin-badge.pb{background:var(--red);color:#fff}
+.twin-price{font-size:.65rem;color:var(--sl400);margin-bottom:10px;line-height:1.3}
+.twin-ctr{display:flex;align-items:center;justify-content:center}
+.twin-b{width:34px;height:36px;border:1.5px solid var(--sl200);background:#fff;font-size:1rem;font-weight:600;color:var(--blue-600);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.twin-b:first-child{border-radius:8px 0 0 8px}
+.twin-b:last-child{border-radius:0 8px 8px 0}
+.twin-b:hover{background:var(--blue-100)}
+.twin-v{width:48px;height:36px;border:1.5px solid var(--sl200);border-left:none;border-right:none;text-align:center;font-size:1.1rem;font-weight:800;font-family:inherit;color:var(--blue-700);background:#fff;outline:none;-moz-appearance:textfield}
+.twin-v::-webkit-outer-spin-button,.twin-v::-webkit-inner-spin-button{-webkit-appearance:none}
+.twin-lbl{font-size:.62rem;color:var(--sl400);margin-top:6px}
+.twin-inst{margin-top:8px;padding:6px 8px;background:rgba(255,255,255,.7);border-radius:6px;display:flex;align-items:center;justify-content:center;gap:6px}
+.inst-tag{font-size:.6rem;font-weight:700;color:#fff;padding:2px 6px;border-radius:3px}
+.inst-tag.ct{background:var(--blue-500)}
+.inst-tag.pt{background:var(--gold-500)}
+.inst-amt{font-size:1.1rem;font-weight:800;color:var(--blue-700);font-family:inherit}
+.twin-krw{font-size:.65rem;color:var(--sl400);margin-top:2px}
+.twin-calc{font-size:.55rem;color:var(--sl400);margin-top:2px;line-height:1.3}
+
+/* DAB TOTAL */
+.dab-total{margin-top:12px;padding:14px 16px;background:linear-gradient(135deg,var(--blue-100),#EEF6FC);border-radius:var(--rs);border:1.5px solid var(--blue-200)}
+.dab-total-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.dab-total-label{font-size:.78rem;font-weight:800;color:var(--blue-700)}
+.dab-total-note{font-size:.6rem;color:var(--blue-400);font-weight:500}
+.dab-total-row{display:flex;align-items:baseline;gap:10px}
+.dab-total-amt{font-size:1.5rem;font-weight:900;color:var(--blue-700)}
+.dab-total-krw{font-size:.82rem;font-weight:600;color:var(--sl400)}
+.dab-total-calc{font-size:.62rem;color:var(--sl400);margin-top:4px;line-height:1.5}
+
+/* MAB */
+.mab-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.mab-ttl{font-size:.88rem;font-weight:800;color:var(--blue-700)}
+.mab-total{font-size:.92rem;font-weight:800;color:var(--blue-700)}
+.mab-desc{font-size:.68rem;color:var(--sl500);margin-bottom:10px;line-height:1.6}
+.mab-tbl-btn{margin:0 0 6px;font-size:.75rem;padding:8px 12px}
+.mab-ref{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:.72rem}
+.mab-ref thead th{padding:8px 10px;text-align:center;font-weight:700;font-size:.65rem}
+.mab-th-p{background:#3B8CC4;color:#fff;border-radius:6px 0 0 0;width:25%}
+.mab-th-t{background:#3B8CC4;color:#fff}
+.mab-th-t:last-child{border-radius:0 6px 0 0}
+.mab-ref tbody td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--sl100);color:var(--sl600)}
+.mab-td-p{text-align:center;font-weight:800;letter-spacing:.04em}
+.mab-r-c td{background:#F8FBFF}
+.mab-r-c .mab-td-p{color:#1A6FB5}
+.mab-r-p td{background:#E87C00;color:#fff;font-weight:700}
+.mab-r-p .mab-td-p{color:#fff}
+.mab-hl{outline:2.5px solid var(--red);outline-offset:-1px;border-radius:3px;position:relative}
+.mab-calc{margin-top:12px;display:flex;flex-directoion:column;gap:6px}
+.mab-cr{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:.75rem;transition:all .3s}
+.mc-c{background:rgba(135,206,235,.08);border:1px solid rgba(135,206,235,.15)}
+.mc-p{background:rgba(217,64,64,.05);border:1px solid rgba(217,64,64,.1)}
+.mab-tag{font-size:.6rem;font-weight:800;padding:2px 8px;border-radius:5px;letter-spacing:.04em;flex-shrink:0}
+.mab-tag.ct{background:#1A6FB5;color:#fff}
+.mab-tag.pt{background:var(--red);color:#fff}
+.mab-det{color:var(--sl500);flex:1;font-size:.72rem}
+.mab-amt{font-size:1rem;font-weight:800;color:var(--blue-700);flex-shrink:0}
+.mab-amt.pa{color:var(--red)}
+.mab-tot{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--blue-800);border-radius:8px;color:#fff}
+.mab-tot-l{font-size:.75rem;font-weight:700;color:var(--blue-200);flex:1}
+.mab-tot-a{font-size:1.2rem;font-weight:900}
+.mab-tot-k{font-size:.7rem;color:var(--blue-200)}
+.dab-mab-total{display:flex;align-items:center;gap:8px;padding:10px 12px;margin-top:6px;background:linear-gradient(135deg,#1A7A5A,#22956E);border-radius:8px;color:#fff}
+.dmt-label{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.8);flex:1}
+.dmt-amount{font-size:1.3rem;font-weight:900}
+.dmt-krw{font-size:.7rem;color:rgba(255,255,255,.7)}
+.dmt-detail{font-size:.62rem;color:rgba(255,255,255,.6);margin-top:2px}
+
+/* ACCORDION SPACING - main accordions only */
+.app > .acc-btn{margin-top:20px}
+
+/* STEP CARDS */
+.match-explain{padding:12px 14px;background:var(--blue-100);border-radius:8px;margin-bottom:14px;border-left:3px solid var(--blue-400)}
+.match-explain p{font-size:.72rem;color:var(--sl600);line-height:1.6;margin:0 0 4px}
+.match-explain p:last-child{margin-bottom:0}
+.match-explain strong{color:var(--blue-700)}
+.step-cards{display:flex;flex-directoion:column;align-items:center;gap:0;margin-bottom:14px}
+.step-card{width:100%;padding:14px 16px;border-radius:10px;background:#fff;border:1.5px solid var(--sl200);position:relative}
+.step-card-ok{background:linear-gradient(135deg,#E8F8F0,#F0FFF8);border-color:var(--mint)}
+.step-card-pay{background:linear-gradient(135deg,#E8F4FD,#F0F8FF);border-color:var(--blue-400)}
+.step-num{font-size:.58rem;font-weight:800;color:#fff;background:var(--blue-600);display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:6px;letter-spacing:.06em}
+.step-card-ok .step-num{background:var(--mint)}
+.step-card-pay .step-num{background:var(--gold-500)}
+.step-title{font-size:.85rem;font-weight:800;color:var(--sl700);margin-bottom:6px}
+.step-body{display:flex;flex-directoion:column;gap:4px}
+.step-cond{padding:6px 12px;background:var(--sl50);border-radius:6px;font-size:.75rem;color:var(--sl600);border:1px solid var(--sl100)}
+.step-cond strong{color:var(--blue-700)}
+.step-week{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:8px}
+.sw-d{text-align:center;padding:6px 2px;background:var(--blue-100);border-radius:5px;font-size:.65rem;font-weight:700;color:var(--blue-600)}
+.sw-e{background:var(--blue-200);color:var(--blue-700)}
+/* Matching visual diagram */
+.step-match-visual{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px 8px;margin-top:6px}
+.smv-team,.smv-me{text-align:center;flex:1;max-width:120px}
+.smv-icon{font-size:1.6rem;margin-bottom:4px}
+.smv-label{font-size:.62rem;font-weight:700;color:var(--sl500);margin-bottom:4px}
+.smv-bonus{padding:8px 6px;border-radius:8px;background:#fff;border:1.5px solid var(--sl200);font-size:.68rem;color:var(--sl600);line-height:1.4}
+.smv-bonus strong{font-size:.92rem;color:var(--blue-700)}
+.smv-bonus-me{background:linear-gradient(135deg,#E8F8F0,#D4F5E9);border-color:var(--mint)}
+.smv-bonus-me strong{color:#1A7A5A}
+.smv-arrow-wrap{display:flex;flex-directoion:column;align-items:center;gap:2px;flex-shrink:0;width:70px}
+.smv-arrow-line{width:100%;height:2px;background:linear-gradient(90deg,var(--blue-300),var(--mint))}
+.smv-arrow-text{font-size:.55rem;font-weight:700;color:var(--mint);white-space:nowrap}
+.step-text{font-size:.75rem;color:var(--sl600);line-height:1.6;margin:0}
+.step-text strong{color:var(--blue-700)}
+.step-arrow{font-size:1rem;color:var(--sl300);font-weight:700;padding:2px 0}
+.step-bonus-box{padding:14px 16px;background:rgba(255,140,0,.06);border:1.5px solid rgba(255,140,0,.2);border-radius:10px;margin-bottom:14px}
+.step-bonus-title{font-size:.78rem;font-weight:800;color:#E87C00;margin-bottom:6px}
+.step-bonus-desc{font-size:.72rem;color:var(--sl600);line-height:1.7;margin:0}
+.step-bonus-note{font-size:.68rem;color:var(--mint);font-weight:700}
+
+/* WEEKLY MATCHING */
+/* Match inputs */
+.match-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.match-result{text-align:center;padding:14px;background:var(--sl50);border-radius:8px;border:1px solid var(--sl100)}
+.mr-label{font-size:.68rem;color:var(--sl400);margin-bottom:4px}
+.mr-amt{font-size:1.4rem;font-weight:900;color:var(--blue-700)}
+.mr-krw{font-size:.72rem;color:var(--sl400)}
+
+/* FORMS */
+.fg{display:flex;flex-directoion:column;gap:3px}
+.fg label{font-size:.68rem;font-weight:600;color:var(--sl500)}
+.fg input{padding:8px 10px;border:1.5px solid var(--sl200);border-radius:var(--rs);font-size:.85rem;font-family:inherit;color:var(--sl800);background:var(--sl50);outline:none;transition:border-color .2s}
+.fg input:focus{border-color:var(--blue-400);box-shadow:0 0 0 3px rgba(135,206,235,.15);background:#fff}
+.fg .unit{font-size:.6rem;color:var(--sl400)}
+
+/* LEG ROWS */
+.leg-c{margin-top:8px}
+.leg-r{display:flex;flex-directoion:column;gap:6px;margin-bottom:8px;padding:10px 12px;background:var(--sand-100);border-radius:var(--rs);border:1px solid var(--sand-200)}
+.leg-r .leg-l{font-size:.75rem;font-weight:700;color:var(--blue-600);display:flex;justify-content:space-between;align-items:center}
+.leg-r input{padding:8px 10px;border:1.5px solid var(--sl200);border-radius:6px;font-size:.82rem;font-family:inherit;background:#fff;outline:none;width:100%;transition:border-color .2s}
+.leg-r input:focus{border-color:var(--blue-400)}
+.leg-rank{padding:6px 8px;border:1.5px solid var(--blue-200);border-radius:6px;font-size:.72rem;font-weight:700;font-family:inherit;color:var(--blue-600);background:var(--blue-100);cursor:pointer;outline:none;width:100%;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%232980B9' d='M5 7L1 3h8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;transition:border-color .2s}
+.leg-rank:focus{border-color:var(--blue-500)}
+.act-select{padding:10px 12px;border:1.5px solid var(--sl200);border-radius:var(--rs);font-size:.82rem;font-family:inherit;font-weight:600;color:var(--sl700);background:#fff;outline:none;width:100%;cursor:pointer;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394A3B8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.act-select:focus{border-color:var(--blue-400);box-shadow:0 0 0 3px rgba(135,206,235,.15)}
+.btn-rm{background:none;border:none;color:var(--sl300);font-size:.9rem;cursor:pointer;transition:color .2s;padding:2px 4px}
+.btn-rm:hover{color:var(--coral)}
+.btn-add{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:var(--blue-100);color:var(--blue-600);border:1.5px dashed var(--blue-300);border-radius:var(--rs);font-size:.72rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:4px;font-family:inherit}
+.btn-add:hover{background:var(--blue-200);border-color:var(--blue-500)}
+.leg-total{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--blue-800);border-radius:8px;color:#fff;margin-top:8px;margin-bottom:8px}
+.leg-total-l{font-size:.72rem;font-weight:600;color:var(--blue-200)}
+.leg-total-v{font-size:1.1rem;font-weight:900}
+/* Gauge bar for 40% rule */
+.leg-gauge{height:4px;background:var(--sl100);border-radius:2px;margin-top:4px;overflow:hidden}
+.leg-gauge-fill{height:100%;border-radius:2px;background:var(--blue-400);transition:width .4s}
+.leg-gauge-fill.over{background:var(--red)}
+.leg-feedback{margin-top:8px;padding:8px 10px;border-radius:6px;font-size:.68rem;line-height:1.5;display:none}
+.leg-feedback.show{display:block}
+.leg-feedback.warn{background:#FFF5F2;border:1px solid var(--coral);color:var(--coral)}
+.leg-feedback.tip{background:#E8F8F0;border:1px solid var(--mint);color:#1A7A5A}
+
+/* RANK TABLE */
+.rank-tbl-scroll{overflow-x:auto;margin:8px 0}
+.rank-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.62rem}
+.rank-tbl thead th{padding:6px 5px;font-size:.58rem;font-weight:700;text-align:center;white-space:nowrap;background:var(--blue-800);color:#fff}
+.rank-tbl thead th:first-child{border-radius:6px 0 0 0;text-align:left}
+.rank-tbl thead th:last-child{border-radius:0 6px 0 0}
+.rank-tbl .cp{background:var(--blue-700)}
+.rank-tbl .ca{background:#E87C00}
+.rank-tbl .cb{background:#1A7A5A}
+.rank-tbl .ck{background:#8B6914}
+.rank-tbl tbody td{padding:6px 5px;text-align:center;color:var(--sl600)}
+.rank-tbl tbody td:first-child{text-align:left}
+.rank-tbl tbody tr:hover{background:var(--blue-100)}
+.rank-tbl tbody tr.hl{outline:2.5px solid var(--red);outline-offset:-1px;border-radius:4px}
+.rank-tbl tbody tr.hl td{font-weight:800;background:rgba(217,64,64,.05)}
+.rank-tbl tbody tr.hl-goal{outline:2px dashed var(--blue-400);outline-offset:-1px;border-radius:4px}
+.rank-tbl tbody tr.hl-goal td{background:rgba(135,206,235,.08)}
+.td-p{color:var(--blue-700);font-weight:700}
+.td-a{color:#E87C00;font-weight:600}
+.td-b{color:#1A7A5A;font-weight:700}
+.td-k{color:#8B6914;font-weight:700}
+.rk-badge{font-size:.58rem;padding:2px 6px;border-radius:4px;font-weight:800;display:inline-block}
+.rk-br{background:#F5E6D3;color:#8B6914}
+.rk-si{background:#E8E8E8;color:#555}
+.rk-go{background:#FFF3D6;color:#B8860B}
+.rk-di{background:#E8F4FD;color:var(--blue-600)}
+.rk-cr{background:linear-gradient(135deg,#FFD700,#FFA500);color:#fff}
+.rank-msg{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.72rem;font-weight:600;text-align:center}
+
+/* BUILDER BASE */
+.bb-tbl{width:100%;border-collapse:collapse;font-size:.72rem;margin:8px 0}
+.bb-tbl thead th{padding:8px 10px;text-align:center;font-weight:700;font-size:.65rem}
+.bb-th-v{background:#3B8CC4;color:#fff;border-radius:6px 0 0 0}
+.bb-th-p{background:#E87C00;color:#fff;border-radius:0 6px 0 0}
+.bb-tbl tbody td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--sl100)}
+
+/* INCENTIVE CARDS */
+.inc-cards{display:flex;flex-directoion:column;gap:8px}
+.inc-c{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:8px;background:#fff;border:1px solid var(--sl100);box-shadow:0 1px 4px rgba(14,61,92,.04)}
+.inc-ic{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.inc-ti{font-size:.78rem;font-weight:700;color:var(--sl700);margin-bottom:3px}
+.inc-de{font-size:.68rem;color:var(--sl500);line-height:1.5}
+.inc-de strong{color:var(--blue-700)}
+.fast-row{margin-top:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fast-desc{font-size:.62rem;color:var(--sl500)}
+.fast-desc strong{color:#E87C00}
+/* Toggle switch */
+.fast-toggle{position:relative;display:inline-block;width:40px;height:22px;flex-shrink:0}
+.fast-toggle input{opacity:0;width:0;height:0}
+.fast-toggle-slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:var(--sl200);border-radius:22px;transition:.3s}
+.fast-toggle-slider::before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.fast-toggle input:checked+.fast-toggle-slider{background:var(--mint)}
+.fast-toggle input:checked+.fast-toggle-slider::before{transform:translateX(18px)}
+.inc-c.off{opacity:.5}
+.join-input{padding:4px 8px;border:1.5px solid var(--sl200);border-radius:6px;font-size:.7rem;font-family:inherit;color:var(--sl700);background:#fff;outline:none}
+.join-input:focus{border-color:var(--blue-400)}
+/* Incentive status badges */
+.inc-status{margin-top:6px;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:6px;display:inline-block}
+.inc-status.achieved{background:#E8F8F0;color:#1A7A5A;border:1px solid var(--mint)}
+.inc-status.not-yet{background:var(--sl50);color:var(--sl400);border:1px solid var(--sl200)}
+.inc-c.done{border-color:var(--mint);background:linear-gradient(135deg,#F0FFF8,#E8F8F0)}
+/* Viaje Élite */
+.elite-progress{margin-top:8px}
+.elite-months{display:flex;align-items:center;gap:4px;justify-content:center;margin-bottom:8px}
+.elite-month{width:64px;height:64px;border-radius:50%;border:2.5px solid var(--sl200);background:#fff;cursor:pointer;display:flex;flex-directoion:column;align-items:center;justify-content:center;gap:1px;transition:all .3s;font-family:inherit}
+.elite-month:hover{border-color:var(--blue-400);transform:scale(1.05)}
+.elite-month.checked{border-color:var(--mint);background:linear-gradient(135deg,#E8F8F0,#D4F5E9);animation:emPop .4s ease}
+.elite-month.checked .em-num{color:var(--mint)}
+@keyframes emPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+.em-num{font-size:1rem;font-weight:900;color:var(--sl300);line-height:1}
+.em-label{font-size:.48rem;font-weight:600;color:var(--sl400)}
+.elite-arrow{font-size:.8rem;color:var(--sl300)}
+.elite-bar-wrap{height:6px;background:var(--sl100);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.elite-bar-fill{height:100%;background:linear-gradient(90deg,var(--mint),#4ECDC4);border-radius:3px;transition:width .5s cubic-bezier(.25,.46,.45,.94)}
+.elite-msg{font-size:.68rem;color:var(--sl500);text-align:center}
+.elite-msg.complete{color:var(--mint);font-weight:700}
+/* Destination picker */
+.elite-dest{margin-top:10px;padding:12px;background:linear-gradient(135deg,#E8F4FD,#F0F8FF);border-radius:10px;border:1px solid var(--blue-200);animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.elite-dest-title{font-size:.75rem;font-weight:700;color:var(--blue-700);text-align:center;margin-bottom:8px}
+.elite-dest-btns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.dest-btn{padding:10px 4px;border-radius:10px;border:2px solid var(--sl200);background:#fff;cursor:pointer;text-align:center;font-size:1.2rem;line-height:1.3;transition:all .2s;font-family:inherit}
+.dest-btn span{font-size:.6rem;font-weight:600;color:var(--sl600);display:block}
+.dest-btn:hover{border-color:var(--blue-400);transform:scale(1.05)}
+.dest-btn.picked{border-color:var(--gold-400);background:linear-gradient(135deg,#FFF3D6,#FFE8B0);transform:scale(1.05);box-shadow:0 3px 12px rgba(212,168,83,.2)}
+.elite-congrats{margin-top:8px;text-align:center;font-size:.72rem;font-weight:700;color:var(--gold-500)}
+.elite-notice{margin-top:10px;padding:8px 12px;background:var(--sand-100);border-radius:6px;border:1px solid var(--sand-200)}
+.elite-notice p{font-size:.65rem;color:var(--sl500);line-height:1.6;margin:0}
+
+/* WINWIN DIAGRAM */
+.ww{padding:16px;background:linear-gradient(135deg,#0E3D5C,#1A5F8A);border-radius:12px;margin-top:8px;overflow:hidden;position:relative}
+.ww::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:rgba(135,206,235,.1);border-radius:50%}
+.ww::after{content:'';position:absolute;bottom:-30px;left:-30px;width:80px;height:80px;background:rgba(212,168,83,.08);border-radius:50%}
+.ww-header{text-align:center;margin-bottom:14px;position:relative;z-index:1}
+.ww-emoji{font-size:1.8rem;margin-bottom:4px}
+.ww-t{font-size:.85rem;font-weight:800;color:#fff}
+.ww-sub-t{font-size:.65rem;color:var(--blue-200);margin-top:2px}
+.ww-chart{display:flex;flex-directoion:column;gap:10px;position:relative;z-index:1;margin-bottom:14px}
+.ww-row{display:flex;align-items:center;gap:8px}
+.ww-rank{flex-shrink:0;width:44px}
+.ww-bar-wrap{flex:1;height:28px;background:rgba(255,255,255,.1);border-radius:6px;overflow:hidden}
+.ww-bar{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.6rem;font-weight:700;color:rgba(255,255,255,.8);transition:width 1s cubic-bezier(.25,.46,.45,.94)}
+.ww-bar-1{background:linear-gradient(90deg,#87CEEB,#5BB8E0)}
+.ww-bar-2{background:linear-gradient(90deg,#6BC5B0,#4ECDC4)}
+.ww-bar-3{background:linear-gradient(90deg,#D4A853,#E0B85C)}
+.ww-val{flex-shrink:0;font-size:.82rem;font-weight:900;color:#fff;text-align:right;min-width:55px}
+.ww-val-k{display:block;font-size:.55rem;font-weight:600;color:var(--blue-200)}
+.ww-total-box{text-align:center;padding:12px;background:rgba(255,255,255,.08);border-radius:10px;border:1.5px solid rgba(255,255,255,.15);position:relative;z-index:1;margin-bottom:8px}
+.ww-total-label{font-size:.62rem;color:var(--blue-200);margin-bottom:2px}
+.ww-total-amt{font-size:1.8rem;font-weight:900;color:#FFD700;text-shadow:0 2px 10px rgba(255,215,0,.3);line-height:1.1}
+.ww-total-krw{font-size:.72rem;color:var(--blue-200);margin-top:2px}
+.ww-msg{text-align:center;font-size:.68rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
+
+/* CAUTION */
+.caut{padding:10px 12px;background:#FFF8F0;border-radius:6px;border-left:3px solid #E87C00;font-size:.68rem;color:var(--sl600);line-height:1.6;margin-bottom:6px}
+.caut strong{color:var(--sl800)}
+
+/* FLOATING BAR */
+.fbar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(14,61,92,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 -3px 20px rgba(0,0,0,.2);transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);border-radius:14px 14px 0 0}
+.fbar.vis{transform:translateY(0)}
+.fbar-inner{max-width:960px;margin:0 auto;padding:10px 18px 6px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fbar-l{flex:1;min-width:0}
+.fbar-lbl{font-size:.6rem;color:var(--blue-200);font-weight:500;margin-bottom:1px}
+.fbar-bd{font-size:.58rem;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fbar-r{text-align:right;flex-shrink:0}
+.fbar-usd{font-size:1.3rem;font-weight:900;color:#fff;line-height:1.1}
+.fbar-krw{font-size:.68rem;color:var(--blue-200);font-weight:500}
+.fbar-prog{height:3px;background:rgba(255,255,255,.1)}
+.fbar-prog-f{height:100%;background:linear-gradient(90deg,var(--blue-300),var(--gold-400));width:0%;transition:width .6s}
+body.has-fb{padding-bottom:60px}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px;font-size:.62rem;color:var(--sl400);border-top:1px solid var(--sl100);margin-top:24px}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .hero{padding:24px 14px 56px}
+  .card{padding:16px 12px;margin-bottom:10px}
+  .card h2{font-size:1rem}
+  .card .desc{margin-bottom:8px}
+  .goal-inner{flex-directoion:column;align-items:flex-start;gap:6px}
+  .goal-right{text-align:left;width:100%}
+  .goal-row{justify-content:flex-start}
+  .twin{padding:12px 8px 10px}
+  .twin-v{width:42px;font-size:.95rem}
+  .twin-b{width:30px;height:32px;font-size:.9rem}
+  .prof-frame{width:76px;height:92px;border-width:2px}
+  .bld-scene{height:200px}
+  .bld-found{width:100px;height:20px}
+  .bld-found-txt{font-size:.52rem}
+  .bld-tower,.bf,.bld-roof,.bld-roof.vis{width:86px}
+  .bw{width:14px;height:10px;font-size:6px}
+  .bf{height:18px}
+  .match-inputs{grid-template-columns:1fr}
+  .leg-r{gap:5px;padding:8px 10px}
+  .acc-btn{padding:10px 12px;font-size:.75rem}
+  .rank-tbl{font-size:.56rem}
+  .rank-tbl thead th,.rank-tbl tbody td{padding:4px 3px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Nomad <span>Road</span> Map</h1>
+  <p class="tagline">Construyendo una Vida Nómada Digital con Confianza</p>
+  <p class="sub">Plataforma de Membresía de Cruceros · Simulador</p>
+</header>
+<div class="wave-div">
+  <svg viewBox="0 0 1440 50" preserveAspectRatio="none">
+    <path fill="var(--sand-50)" d="M0,25C240,50,480,0,720,25C960,50,1200,0,1440,25L1440,50L0,50Z"/>
+  </svg>
+</div>
+
+<main class="app">
+
+<!-- BACKOFFICE -->
+<a href="https://www.incruises.com" target="_blank" rel="noopener" class="bo-btn">🌐 Oficina Oficial</a>
+
+<!-- YOUTUBE -->
+<div class="yt-wrap">
+  <iframe src="https://www.youtube.com/embed/eTD01WI0d7w?autoplay=1&mute=1&loop=1&playlist=eTD01WI0d7w&playsinline=1" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+</div>
+
+<!-- GOAL -->
+<div class="card goal-card">
+  <div class="goal-inner">
+    <div>
+      <h2><span class="ic">🎯</span> Mi Meta</h2>
+      <p class="goal-sub">Ingresa tu meta de ingresos mensuales</p>
+    </div>
+    <div class="goal-right">
+      <div class="goal-row">
+        <span class="goal-month">$</span>
+        <div class="goal-field">
+          <input type="number" id="goalUsd" value="5000" min="100" step="100" oninput="updateAll()">
+          <span class="goal-suf">/ month</span>
+        </div>
+        <span class="goal-hint">Mi meta de<br>ingresos mensuales</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARTNER ESSENTIAL -->
+<button class="acc-btn" onclic="toggleAcc('accPartner')" style="border-left:3px solid #f59e0b;margin-bottom:12px">
+  <span class="acc-l"><span class="acc-n" style="background:rgba(245,158,11,.15);color:#f59e0b;font-size:.8rem">⭐</span>Requisitos del Socio<span class="acc-clic">(clic)</span></span>
+  <span class="acc-ar" id="accPartner-ar">▼</span>
+</button>
+<div class="acc-body" id="accPartner">
+  <div class="acc-inner">
+    <div style="padding:4px 0">
+      <div style="display:inline-block;padding:4px 12px;border-radius:16px;font-size:.65rem;font-weight:800;background:rgba(245,158,11,.12);color:#f59e0b;margin-bottom:10px">⚡ VERIFICACIÓN</div>
+      <p style="font-size:.92rem;font-weight:800;color:var(--sl800);margin-bottom:4px">Dos Cosas que Todo Socio Debe Saber</p>
+      <p style="font-size:.68rem;color:var(--sl400);margin-bottom:14px">¡Condiciones esenciales para las 5 fuentes de ingresos!</p>
+
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,.12);color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;flex-shrink:0">1</div>
+        <div>
+          <p style="font-size:.78rem;font-weight:700;color:var(--sl700);margin-bottom:3px">Cuota de Renovación</p>
+          <p style="font-size:.72rem;color:var(--sl600);line-height:1.5">You must pay <strong style="color:var(--sl800)">$95</strong> cada 6 meses como cuota de renovación.</p>
+          <p style="font-size:.62rem;color:var(--coral);margin-top:4px;line-height:1.5">⚠️ Se enviarán notificaciones. Si no pagas en 30+ días, serás transferido. (¡Paga manualmente!)</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:12px;align-items:flex-start">
+        <div style="width:28px;height:28px;border-radius:50%;background:rgba(245,158,11,.12);color:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;flex-shrink:0">2</div>
+        <div>
+          <p style="font-size:.78rem;font-weight:700;color:var(--sl700);margin-bottom:3px">Activación Mínima Directa</p>
+          <p style="font-size:.72rem;color:var(--sl600);line-height:1.5">¡El período varía según el monto!</p>
+        </div>
+      </div>
+
+      <table style="width:100%;border-collapse:collapse;margin-bottom:12px;font-size:.72rem">
+        <thead><tr><th style="padding:8px 12px;background:rgba(245,158,11,.1);color:#f59e0b;font-weight:700;font-size:.62rem;text-align:left">Ventas Directas</th><th style="padding:8px 12px;background:rgba(245,158,11,.1);color:#f59e0b;font-weight:700;font-size:.62rem;text-align:left">Período de Activación</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">$200</td><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">30 días</td></tr>
+          <tr style="background:var(--sl50)"><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">$600</td><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">90 días</td></tr>
+          <tr><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">$1,200</td><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">180 días</td></tr>
+          <tr style="background:var(--sl50)"><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">$2,400</td><td style="padding:8px 12px;border-top:1px solid var(--sl100);color:var(--sl600);font-weight:600">365 días</td></tr>
+        </tbody>
+      </table>
+
+      <div style="padding:10px 12px;background:var(--sand-100);border-radius:8px;border-left:3px solid #f59e0b;font-size:.68rem;color:var(--sl600);line-height:1.6">💡 ¡Puedes hacer ventas de $200 mensuales o un monto mayor de una vez!</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILDING (always visible) -->
+<div class="bld-wrap">
+  <div class="bld-header">
+    <span class="bld-title">🏗️ Mi Edificio Online</span>
+    <span class="bld-floors" id="bldFloors">0F</span>
+  </div>
+  <div class="bld-layout">
+    <div class="bld-profile">
+      <div class="prof-title">👑 Propietario</div>
+      <label class="prof-frame" for="profUp">
+        <img id="profImg" src="" alt="">
+        <div class="prof-ph" id="profPh"><span class="prof-plus">＋</span><span class="prof-hint">Agregar Foto</span></div>
+        <input type="file" id="profUp" accept="image/*" onchange="handlePhoto(this)" hidden>
+      </label>
+      <div class="prof-name" contenteditable="true" data-placeholder="Ingrese Nombre"></div>
+    </div>
+    <div class="bld-scene" id="bldScene">
+      <div class="cloud cl1"></div><div class="cloud cl2"></div><div class="cloud cl3"></div>
+      <div class="bld-flag" id="bldFlag"><div class="flag-pole"></div><div class="flag-cloth">Dream 🎉</div></div>
+      <div class="bld-tower" id="bldTower"><div class="bld-roof" id="bldRoof"></div></div>
+      <div class="bld-found"><div class="bld-found-txt">🌏 Edificio Global</div></div>
+      <div class="bld-ground"></div>
+    </div>
+  </div>
+  <div class="bld-labels">
+    <span class="bl-i"><span class="bl-d bl-c"></span>Classic</span>
+    <span class="bl-i"><span class="bl-d bl-p"></span>Premium</span>
+  </div>
+</div>
+
+<!-- ═══ ACCORDIONS ═══ -->
+
+<!-- ① Daily & Monthly Activation -->
+<button class="acc-btn ab1" onclic="toggleAcc('acc1')">
+  <span class="acc-l"><span class="acc-n">①</span>Bono de Activación Diario y Mensual<span class="acc-clic">(clic)</span></span>
+  <span><span class="acc-preview" id="prev1">$0</span><span class="acc-ar" id="acc1-ar">▼</span></span>
+</button>
+<div class="acc-body" id="acc1">
+  <div class="acc-inner">
+    <div class="twin-wrap">
+      <div class="twin">
+        <div class="twin-badge cb">CLASSIC</div>
+        <div class="twin-price">Cuota de activación $100 incl. $200</div>
+        <div class="twin-ctr">
+          <button class="twin-b" onclic="tweak('cCnt',-1)">−</button>
+          <input type="number" id="cCnt" min="0" value="0" class="twin-v" oninput="updateAll()">
+          <button class="twin-b" onclic="tweak('cCnt',1)">+</button>
+        </div>
+        <div class="twin-lbl">Referidos Directos</div>
+        <div class="twin-inst"><span class="inst-tag ct">Instantáneo 10%</span><span class="inst-amt" id="cInc">$0</span></div>
+        
+      </div>
+      <div class="twin">
+        <div class="twin-badge pb">PREMIUM</div>
+        <div class="twin-price">Cuota de activación $250 incl. $500</div>
+        <div class="twin-ctr">
+          <button class="twin-b" onclic="tweak('pCnt',-1)">−</button>
+          <input type="number" id="pCnt" min="0" value="0" class="twin-v" oninput="updateAll()">
+          <button class="twin-b" onclic="tweak('pCnt',1)">+</button>
+        </div>
+        <div class="twin-lbl">Referidos Directos</div>
+        <div class="twin-inst"><span class="inst-tag pt">Instantáneo 10%</span><span class="inst-amt" id="pInc">$0</span></div>
+        
+      </div>
+    </div>
+    <!-- DAB Total -->
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('dabInfo')" style="margin-top:10px">💡 ¿Qué es el Bono de Activación Diario? <span class="acc-clic">(clic)</span> <span class="acc-ar" id="dabInfo-ar">▼</span></button>
+    <div class="acc-body" id="dabInfo">
+      <div class="caut" style="border-left-color:var(--blue-400)"><strong>⚡ Bono de Activación Diario (DAB)</strong><br>Recibes <strong>10%</strong> de ventas directoas en <strong>24 horas</strong>.<br>Classic $200 × 10% = <strong>$20</strong> / Premium $500 × 10% = <strong>$50</strong></div>
+    </div>
+    <div class="dab-total">
+      <div class="dab-total-hdr">
+        <span class="dab-total-label">⚡ Bono de Activación Diario</span>
+        <span class="dab-total-note">Pago en 24h</span>
+      </div>
+      <div class="dab-total-row">
+        <span class="dab-total-amt" id="dabTotalAmt">$0</span>
+      </div>
+      
+    </div>
+    <!-- MAB -->
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--sl100)">
+      <div class="mab-hdr">
+        <span class="mab-ttl">📈 Bono de Activación Mensual</span>
+        <span class="mab-total" id="mabTotal">$0</span>
+      </div>
+      <p class="mab-desc">¡Activa 3+ miembros y el bono por persona aumenta!<br>💡 Ayuda a tu equipo a crecer para mayores ingresos.</p>
+      <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('mabTbl')">📊 Tabla de Tarifas Mensuales <span class="acc-clic">(clic)</span> <span class="acc-ar" id="mabTbl-ar">▼</span></button>
+      <div class="acc-body" id="mabTbl">
+        <table class="mab-ref">
+          <thead><tr><th class="mab-th-p">Plan</th><th class="mab-th-t" id="mth1">3-4 Activos</th><th class="mab-th-t" id="mth2">5-9 Activos</th><th class="mab-th-t" id="mth3">10+</th></tr></thead>
+          <tbody>
+            <tr class="mab-r-c"><td class="mab-td-p">CLASSIC</td><td id="mc1">$20</td><td id="mc2">$30</td><td id="mc3">$40</td></tr>
+            <tr class="mab-r-p"><td class="mab-td-p">PREMIUM</td><td id="mp1"><strong>$50</strong></td><td id="mp2"><strong>$75</strong></td><td id="mp3"><strong>$100</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mab-calc">
+        <div class="mab-cr mc-c"><span class="mab-tag ct">CLASSIC</span><span class="mab-det" id="mabCDet">0</span><span class="mab-amt" id="mabCAmt">$0</span></div>
+        <div class="mab-cr mc-p"><span class="mab-tag pt">PREMIUM</span><span class="mab-det" id="mabPDet">0</span><span class="mab-amt pa" id="mabPAmt">$0</span></div>
+        <div class="mab-tot"><span class="mab-tot-l">Total Mensual</span><span class="mab-tot-a" id="mabTotA">$0</span></div>
+        <div class="dab-mab-total" id="dabMabTotal">
+          <div style="flex:1"><span class="dmt-label">Daily + Monthly Activation Total</span><div class="dmt-detail" id="dmtDetail"></div></div>
+          <span class="dmt-amount" id="dmtAmt">$0</span>
+        </div>
+      </div>
+    </div>
+    <button class="reset-btn" onclic="resetAcc('acc1')">🔄 Reiniciar</button>
+  </div>
+</div>
+
+<!-- ② Weekly & Equiparación Mensual -->
+<button class="acc-btn ab2" onclic="toggleAcc('acc2')">
+  <span class="acc-l"><span class="acc-n">②</span>Bono de Equiparación Semanal y Mensual<span class="acc-clic">(clic)</span></span>
+  <span><span class="acc-preview" id="prev2">$0</span><span class="acc-ar" id="acc2-ar">▼</span></span>
+</button>
+<div class="acc-body" id="acc2">
+  <div class="acc-inner">
+    <div class="match-explain">
+      <p>💡 Como patrocinador, guías a tu equipo a ganar más. Este bono recompensa esa mentoría.</p>
+      <p><strong>Cuando se cumplen las condiciones, recibes equiparación de los bonos de tu equipo.</strong></p>
+    </div>
+    <!-- Step Cards -->
+    <div class="step-cards">
+      <div class="step-card">
+        <div class="step-num">STEP 1</div>
+        <div class="step-title">📅 Una Semana (Lun-Dom)</div>
+        <div class="step-week"><div class="sw-d">Lun</div><div class="sw-d">Mar</div><div class="sw-d">Mié</div><div class="sw-d">Jue</div><div class="sw-d">Vie</div><div class="sw-d">Sáb</div><div class="sw-d sw-e">Dom</div></div>
+        <div class="step-body">
+          <div class="step-cond">🏢 Ventas del equipo <strong>$600+</strong></div>
+          <div class="step-cond">👤 Mis ventas directoas <strong>$200+</strong></div>
+        </div>
+      </div>
+      <div class="step-arrow">▼</div>
+      <div class="step-card step-card-ok">
+        <div class="step-num">STEP 2</div>
+        <div class="step-title">✅ ¡Condiciones cumplidas! Recibe el bono de tu equipo</div>
+        <div class="step-match-visual">
+          <div class="smv-team">
+            <div class="smv-icon">🏢</div>
+            <div class="smv-label">Mi Equipo</div>
+            <div class="smv-bonus">Bono Diario<br><strong>$500</strong></div>
+          </div>
+          <div class="smv-arrow-wrap">
+            <div class="smv-arrow-line"></div>
+            <div class="smv-arrow-text">100% Equiparación</div>
+            <div class="smv-arrow-line"></div>
+          </div>
+          <div class="smv-me">
+            <div class="smv-icon">👤</div>
+            <div class="smv-label">Yo</div>
+            <div class="smv-bonus smv-bonus-me">+<strong>$500</strong><br>¡Ingreso Extra!</div>
+          </div>
+        </div>
+        <!-- example box -->
+        <div style="margin-top:12px;background:rgba(107,197,176,0.08);border:1px solid rgba(107,197,176,0.25);border-radius:12px;padding:14px 16px;">
+          <span style="background:rgba(107,197,176,0.3);color:#1A7A5A;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:1px;display:inline-block;margin-bottom:8px;">Ejemplo</span>
+          <div style="font-size:12.5px;color:var(--sl600);line-height:1.9;">
+            Mi equipo directo en un mes: <strong style="color:#B8860B;">Premium 10</strong> ventas directas<br>
+            Daily Activation <strong style="color:var(--blue-700);">$50 × 10 = $500</strong> recibido, y<br>
+            When Equiparación Semanal conditions are met, <strong style="color:#1A7A5A;">Yo también recibo $500 Match</strong>
+          </div>
+        </div>
+      </div>
+      <div class="step-arrow">▼</div>
+      <div class="step-card step-card-pay">
+        <div class="step-num">STEP 3</div>
+        <div class="step-title">💰 ¡Pago el Próximo Lunes!</div>
+        <div class="step-body">
+          <p class="step-text">¡Se repite semanalmente! <strong>4-5 equiparaciones</strong> por mes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly bonus -->
+    <div class="step-bonus-box">
+      <div class="step-bonus-title">🎁 ¡Oportunidad! — Semana con el día 8</div>
+      <p class="step-bonus-desc">Si cumples las condiciones esa semana<br>Your team's <strong>MAB del mes anterior</strong> ¡también se equipara!<br><span class="step-bonus-note">→ Equiparación semanal + mensual juntas 🎉</span></p>
+    </div>
+
+    <!-- Inputs -->
+    <p style="font-size:.72rem;font-weight:700;color:var(--sl700);margin:12px 0 6px">📝 Team Bonus Input</p>
+    <div class="match-inputs">
+      <div class="fg"><label>Total Bono Diario del Equipo ($)</label><input type="number" id="pDAB" min="0" value="0" oninput="updateAll()"><span class="unit">→ Equiparación Semanal (semanal)</span></div>
+      <div class="fg"><label>Bono Mensual Anterior del Equipo ($)</label><input type="number" id="pMAB" min="0" value="0" oninput="updateAll()"><span class="unit">→ Equiparación Mensual (semana con día 8)</span></div>
+    </div>
+    <div class="match-result">
+      <div class="mr-label">My Match Income</div>
+      <div class="mr-amt" id="matchAmt">$0</div>
+      
+    </div>
+    <button class="reset-btn" onclic="resetAcc('acc2')">🔄 Reiniciar</button>
+  </div>
+</div>
+
+<button class="acc-btn ab3" onclic="toggleAcc('acc3')">
+  <span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo<span class="acc-clic">(clic)</span></span>
+  <span><span class="acc-preview" id="prev3">$0</span><span class="acc-ar" id="acc3-ar">▼</span></span>
+</button>
+<div class="acc-body" id="acc3">
+  <div class="acc-inner">
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('rankTbl')">📊 Tabla de Rangos y Recompensas <span class="acc-clic">(clic)</span> <span class="acc-ar" id="rankTbl-ar">▼</span></button>
+    <div class="acc-body" id="rankTbl"><div class="rank-tbl-scroll"><table class="rank-tbl"><thead><tr><th>Rank</th><th class="cp">Producción Calificada</th><th>Límite Pierna</th><th class="ca">Vol. Activación</th><th class="cb">Bonus</th></tr></thead><tbody id="rankBody"></tbody></table></div></div>
+    <div class="rank-msg" id="rankMsg" style="background:var(--blue-100);color:var(--blue-700)"></div>
+    <!-- Leg inputs (shared with ④) -->
+    <p style="font-size:.72rem;font-weight:700;color:var(--sl700);margin:12px 0 6px">📝 Ingreso de Ventas (por Pierna)</p>
+    <div class="leg-c" id="legC">
+      <div class="leg-r"><span class="leg-l">Leg 1</span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div></div>
+      <div class="leg-r"><span class="leg-l">Leg 2</span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div></div>
+      <div class="leg-r"><span class="leg-l">Leg 3</span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div></div>
+    </div>
+    <button class="btn-add" onclic="addLeg()">+ Agregar Pierna</button>
+    <div class="leg-total" id="legTotal">
+      <span class="leg-total-l">Total Ventas por Pierna</span>
+      <span class="leg-total-v" id="legTotalV">$0</span>
+    </div>
+    <div class="fg" style="margin-top:10px">
+      <label>Team Min. Vol. Activación (New Sales This Month)</label>
+      <select id="teamAct" onchange="updateAll()" class="act-select">
+        <option value="0">Seleccionar</option>
+        <option value="600">$600 (MD)</option>
+        <option value="2000">$2,000 (SMD)</option>
+        <option value="5000">$5,000 (RD)</option>
+        <option value="10000">$10,000 (ND)</option>
+        <option value="20000">$20,000 (ID)</option>
+        <option value="50000">$50,000 (ED)</option>
+        <option value="110000">$110,000 (BOD)</option>
+        <option value="300000">$300,000 (ABOD)</option>
+        <option value="1000000">$1,000,000 (PABOD)</option>
+        <option value="2000000">$2,000,000 (RABOD)</option>
+      </select>
+    </div>
+    <div class="leg-feedback" id="legFB"></div>
+    <div class="match-result" style="margin-top:10px">
+      <div class="mr-label">Bono de Liderazgo</div>
+      <div class="mr-amt" id="leadAmt">$0</div>
+      
+      <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="leadRank">Rank Aún no</div>
+      <div style="font-size:.62rem;color:var(--sl400);margin-top:2px" id="leadElig"></div>
+    </div>
+    <button class="reset-btn" onclic="resetAcc('acc3')">🔄 Reiniciar</button>
+  </div>
+</div>
+
+<!-- ④ Bono Recurrente -->
+<button class="acc-btn ab4" onclic="toggleAcc('acc4')">
+  <span class="acc-l"><span class="acc-n">④</span>Bono Recurrente<span class="acc-clic">(clic)</span></span>
+  <span><span class="acc-preview" id="prev4">$0</span><span class="acc-ar" id="acc4-ar">▼</span></span>
+</button>
+<div class="acc-body" id="acc4">
+  <div class="acc-inner">
+    <p style="font-size:.72rem;color:var(--sl600);margin-bottom:8px">Suscripción × multiplicador = Bono Recurrente (límite escalonado)</p>
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('rqpTbl')">📊 Tier Límite Pierna Table <span class="acc-clic">(clic)</span> <span class="acc-ar" id="rqpTbl-ar">▼</span></button>
+    <div class="acc-body" id="rqpTbl">
+      <table class="bb-tbl">
+        <thead><tr><th class="bb-th-v">Total RQP Tier</th><th class="bb-th-p">máx. por pierna</th></tr></thead>
+        <tbody>
+          <tr><td>~ $2,999</td><td><strong>$1,200</strong></td></tr>
+          <tr><td>$3,000 ~ $9,999</td><td><strong>$1,200</strong></td></tr>
+          <tr><td>$10,000 ~ $24,999</td><td><strong>$4,000</strong></td></tr>
+          <tr><td>$25,000 ~ $49,999</td><td><strong>$10,000</strong></td></tr>
+          <tr><td>$50,000 ~ $99,999</td><td><strong>$20,000</strong></td></tr>
+          <tr><td>$100,000 ~ $249,999</td><td><strong>$40,000</strong></td></tr>
+          <tr><td>$250,000 ~ $549,999</td><td><strong>$100,000</strong></td></tr>
+          <tr><td>$550,000+</td><td><strong>$220,000</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('multiTbl')" style="margin-top:4px">💰 Tabla Multiplicadores <span class="acc-clic">(clic)</span> <span class="acc-ar" id="multiTbl-ar">▼</span></button>
+    <div class="acc-body" id="multiTbl">
+      <table class="bb-tbl">
+        <thead><tr><th class="bb-th-v">Bono Base del Constructor</th><th class="bb-th-p">Multiplicador (por $100)</th></tr></thead>
+        <tbody>
+          <tr><td>$0 ~ $8,999</td><td><strong>$5</strong></td></tr>
+          <tr><td>$9,000 ~ $15,999</td><td><strong>$6</strong></td></tr>
+          <tr><td>$16,000 ~ $22,999</td><td><strong>$7</strong></td></tr>
+          <tr><td>$23,000 ~ $29,999</td><td><strong>$8</strong></td></tr>
+          <tr><td>$30,000</td><td><strong>$9</strong></td></tr>
+          <tr><td>$30,000+ & ID team</td><td><strong>$10</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:8px;padding:6px 10px;background:var(--blue-100);border-radius:6px;font-size:.68rem;font-weight:600;color:var(--blue-700)" id="recMultiInfo">Multiplicador Actual: por $100 $5 (Base)</div>
+    <p style="font-size:.68rem;color:var(--sl500);margin:8px 0">Ingresa ventas recurrentes por pierna.</p>
+    <button class="import-btn" onclic="importLegs()">📥 Importar de Piernas de Liderazgo</button>
+    <div class="fg"><label>Recurrente Directo ($)</label><input type="number" id="myRec" min="0" value="0" oninput="updateAll()"></div>
+    <div id="recLegs" style="margin-top:6px"></div>
+    <div class="leg-feedback" id="rqpFB" style="margin-top:8px"></div>
+    <div class="match-result" style="margin-top:10px">
+      <div class="mr-label">Bono Recurrente</div>
+      <div class="mr-amt" id="recAmt">$0</div>
+      
+      <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="rqpInfo"></div>
+    </div>
+    <button class="reset-btn" onclic="resetAcc('acc4')">🔄 Reiniciar</button>
+  </div>
+</div>
+
+<!-- ⑤ Base Constructor -->
+<button class="acc-btn ab5" onclic="toggleAcc('acc5')">
+  <span class="acc-l"><span class="acc-n">⑤</span>Bono Base del Constructor<span class="acc-clic">(clic)</span></span>
+  <span><span class="acc-preview" id="prev5">$0</span><span class="acc-ar" id="acc5-ar">▼</span></span>
+</button>
+<div class="acc-body" id="acc5">
+  <div class="acc-inner">
+    <div class="fg"><label>Mis Nuevas Ventas Base Constructor</label>
+      <select id="bbSales" onchange="updateAll()" class="act-select">
+        <option value="0">Seleccionar</option>
+        <option value="5000">$5,000 ~ $9,999 (5%)</option>
+        <option value="10000">$10,000 ~ $29,999 (10%)</option>
+        <option value="30000">$30,000+ (30%)</option>
+      </select>
+      <span class="unit">Solo rango inferior, ID+ excluidos</span>
+    </div>
+    <div class="fg" style="margin-top:6px"><label>QBI (%)</label><input type="number" id="qbi" min="0" max="100" value="65" oninput="updateAll()"></div>
+    <div class="match-result" style="margin-top:10px">
+      <div class="mr-label">Bono Base del Constructor</div>
+      <div class="mr-amt" id="bbAmt">$0</div>
+      
+      <div style="font-size:.65rem;color:var(--sl400);margin-top:4px" id="bbInfo"></div>
+    </div>
+    <button class="acc-btn mab-tbl-btn" style="margin-top:10px" onclic="toggleAcc('bbTbl')">📊 Tabla de Tarifas <span class="acc-clic">(clic)</span> <span class="acc-ar" id="bbTbl-ar">▼</span></button>
+    <div class="acc-body" id="bbTbl">
+      <table class="bb-tbl">
+        <thead><tr><th class="bb-th-v">Nuevas Ventas del Mes</th><th class="bb-th-p">Bonus Rate</th></tr></thead>
+        <tbody>
+          <tr><td>$5,000 ~ $9,999</td><td><strong>5%</strong></td></tr>
+          <tr><td>$10,000 ~ $29,999</td><td><strong>10%</strong></td></tr>
+          <tr><td>$30,000+</td><td><strong>30%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('qbiInfo')" style="margin-top:4px">ℹ️ QBI y Detalles <span class="acc-clic">(clic)</span> <span class="acc-ar" id="qbiInfo-ar">▼</span></button>
+    <div class="acc-body" id="qbiInfo">
+      <div class="caut"><strong>📌 QBI (Índice de Calidad de Negocio)</strong> — QBI 65%+ = 100% Bonus. Menos del 65% = solo QBI%.<br>Ex: Bonus $10,000 / QBI 60% → $6,000 paid</div>
+      <div class="caut"><strong>📌 Alcance Base Constructor</strong> — Solo ventas de rango inferior. ID+ excluidos.</div>
+    </div>
+    <button class="acc-btn mab-tbl-btn" onclic="toggleAcc('wwDiag')" style="margin-top:4px">🤝 ¿Por qué es Ganar-Ganar? <span class="acc-clic">(clic)</span> <span class="acc-ar" id="wwDiag-ar">▼</span></button>
+    <div class="acc-body" id="wwDiag">
+      <div class="ww">
+        <div class="ww-header">
+          <div class="ww-emoji">🚀</div>
+          <div class="ww-t">¡Mismas ventas, cada rango gana por separado!</div>
+          <div class="ww-sub-t">Cuando las ventas alcanzan $30,000</div>
+        </div>
+        <div class="ww-chart">
+          <div class="ww-row">
+            <div class="ww-rank"><span class="rk-badge rk-go">ID $100,000</span></div>
+            <div class="ww-bar-wrap"><div class="ww-bar ww-bar-1" style="width:0%"></div></div>
+            <div class="ww-val">$9,000</div>
+          </div>
+          <div class="ww-row">
+            <div class="ww-rank"><span class="rk-badge rk-si">ND $50,000</span></div>
+            <div class="ww-bar-wrap"><div class="ww-bar ww-bar-2" style="width:0%"></div></div>
+            <div class="ww-val">$9,000</div>
+          </div>
+          <div class="ww-row">
+            <div class="ww-rank"><span class="rk-badge rk-si">RD $25,000</span></div>
+            <div class="ww-bar-wrap"><div class="ww-bar ww-bar-3" style="width:0%"></div></div>
+            <div class="ww-val">$9,000</div>
+          </div>
+        </div>
+        <div class="ww-total-box">
+          <div class="ww-total-label">Total Bonus for 3 miembros</div>
+          <div class="ww-total-amt">$27,000</div>
+          
+        </div>
+        <div class="ww-msg">💪 ¡Crezcan juntos, todos ganan!</div>
+      </div>
+    </div>
+    <button class="reset-btn" onclic="resetAcc('acc5')">🔄 Reiniciar</button>
+  </div>
+</div>
+
+<!-- 🎁 Incentive -->
+<button class="acc-btn ab6" onclic="toggleAcc('acc6')">
+  <span class="acc-l"><span class="acc-n">🎁</span>Guía de Incentivos<span class="acc-clic">(clic)</span></span>
+  <span class="acc-ar" id="acc6-ar">▼</span>
+</button>
+<div class="acc-body" id="acc6">
+  <div class="acc-inner">
+    <div class="inc-cards">
+      <div class="inc-c" id="incFree">
+        <span class="inc-ic">💳</span>
+        <div style="flex:1">
+          <div class="inc-ti">Membresía Gratuita ($100 waived)</div>
+          <div class="inc-de">Direct Production <strong>$500</strong> = Month $100 suscripción exenta + 200 puntos</div>
+          <div class="inc-status" id="incFreeStatus"></div>
+        </div>
+      </div>
+      <div class="inc-c" id="incFast">
+        <span class="inc-ic">🚀</span>
+        <div style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="inc-ti">Bono de Inicio Rápido $200</div>
+            <label class="fast-toggle"><input type="checkbox" id="fastOn" checked onchange="updateAll()"><span class="fast-toggle-slider"></span></label>
+          </div>
+          <div class="inc-de">Logra MD (directo $3,000) by <strong>fin del próximo mes</strong> después de registrarte, extra de $200</div>
+          <div class="fast-row"><span class="fast-desc">Mes de Registro</span><input type="month" id="joinMonth" class="join-input" oninput="updateAll()"><span class="fast-desc">¡Logra antes del fin del próximo mes!</span></div>
+          <div class="inc-status" id="incFastStatus"></div>
+        </div>
+      </div>
+      <div class="inc-c" id="incElite">
+        <span class="inc-ic">✈️</span>
+        <div style="flex:1">
+          <div class="inc-ti">Viaje Élite 🏆</div>
+          <div class="inc-de">MD+ con <strong>3 meses consecutivos</strong> Bono de Liderazgo → ¡Elegible para reservar crucero!</div>
+          <div class="elite-progress">
+            <div class="elite-months">
+              <button class="elite-month" id="em1" onclic="toggleElite(1)"><span class="em-num">1</span><span class="em-label">Mes 1</span></button>
+              <span class="elite-arrow">→</span>
+              <button class="elite-month" id="em2" onclic="toggleElite(2)"><span class="em-num">2</span><span class="em-label">Mes 2</span></button>
+              <span class="elite-arrow">→</span>
+              <button class="elite-month" id="em3" onclic="toggleElite(3)"><span class="em-num">3</span><span class="em-label">Mes 3</span></button>
+            </div>
+            <div class="elite-bar-wrap"><div class="elite-bar-fill" id="eliteBar" style="width:0%"></div></div>
+            <div class="elite-msg" id="eliteMsg">¡Toca los meses que recibiste Bono de Liderazgo!</div>
+          </div>
+          <div class="elite-dest" id="eliteDest" style="display:none">
+            <div class="elite-dest-title">🌊 ¿A dónde te gustaría ir?</div>
+            <div class="elite-dest-btns">
+              <button class="dest-btn" onclic="pickDest(this,'🌺 Hawái')">🌺<br><span>Hawaii</span></button>
+              <button class="dest-btn" onclic="pickDest(this,'🧊 Alaska')">🧊<br><span>Alaska</span></button>
+              <button class="dest-btn" onclic="pickDest(this,'🏛️ Mediterráneo')">🏛️<br><span>Mediterranean</span></button>
+              <button class="dest-btn" onclic="pickDest(this,'🏝️ Caribe')">🏝️<br><span>Caribbean</span></button>
+            </div>
+            <div class="elite-congrats" id="eliteCongrats"></div>
+          </div>
+          <div class="elite-notice">
+            <p>※ Viaje Élite disponible manteniendo rango MD</p>
+            <p>※ Cruceros a 90+ días, reserva con 100% de recompensa</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Summary -->
+<button class="acc-btn" onclic="toggleAcc('accSummary')" style="border-left:3px solid var(--sl400)">
+  <span class="acc-l"><span class="acc-n" style="background:var(--sl100);color:var(--sl600);font-size:.7rem">📋</span>Resumen de 5 Bonos<span class="acc-clic">(clic)</span></span>
+  <span class="acc-ar" id="accSummary-ar">▼</span>
+</button>
+<div class="acc-body" id="accSummary">
+  <div class="acc-inner">
+    <button class="acc-btn mab-tbl-btn ab1" onclic="toggleAcc('g1')"><span class="acc-l"><span class="acc-n">①</span>Daily & Monthly Activation</span><span class="acc-ar" id="g1-ar">▼</span></button>
+    <div class="acc-body" id="g1"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
+      <strong>Daily (DAB)</strong>: Classic $20 / Premium $50 — Paid within 24 horas<br>
+      <strong>Monthly (MAB)</strong>: 3+ miembros activados = aumento de bono por persona (Classic $20~$40, Premium $50~$100)
+    </div></div>
+    <button class="acc-btn mab-tbl-btn ab2" onclic="toggleAcc('g2')"><span class="acc-l"><span class="acc-n">②</span>Weekly & Equiparación Mensual</span><span class="acc-ar" id="g2-ar">▼</span></button>
+    <div class="acc-body" id="g2"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
+      Weekly: Team $600 + My directo $200 → Team Bono Diario 100% Equiparación (paid Monday)<br>
+      Week with 8th: previous Monthly Bonus also matched!
+    </div></div>
+    <button class="acc-btn mab-tbl-btn ab3" onclic="toggleAcc('g3')"><span class="acc-l"><span class="acc-n">③</span>Bono de Liderazgo</span><span class="acc-ar" id="g3-ar">▼</span></button>
+    <div class="acc-body" id="g3"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
+      Ventas del equipo based rank = fixed bonus (MD $300 ~ RABOD $305,000)<br>
+      Regla 40%: Máx. 40% de un equipo. Vol. Activación condition requeridos.
+    </div></div>
+    <button class="acc-btn mab-tbl-btn ab4" onclic="toggleAcc('g4')"><span class="acc-l"><span class="acc-n">④</span>Bono Recurrente</span><span class="acc-ar" id="g4-ar">▼</span></button>
+    <div class="acc-body" id="g4"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
+      Team subscription RQP por $100 = $5 paid. Tiered leg cap applied.<br>
+      Higher total RQP = higher leg cap = massive ¡aumento de ingresos!
+    </div></div>
+    <button class="acc-btn mab-tbl-btn ab5" onclic="toggleAcc('g5')"><span class="acc-l"><span class="acc-n">⑤</span>Base Constructor</span><span class="acc-ar" id="g5-ar">▼</span></button>
+    <div class="acc-body" id="g5"><div style="padding:10px 4px;font-size:.72rem;color:var(--sl600);line-height:1.7">
+      New sales this month $5K+ → 5% / $10K+ → 10% / $30K+ → 30%<br>
+      QBI 65%  = 100% paid. Each rank earns separately (Win-Win!)
+    </div></div>
+  </div>
+</div>
+
+<!-- MOTIVATIONAL CARD -->
+<div class="moti-card">
+  <div class="moti-emoji">🚢</div>
+  <div class="moti-quote">"El futuro pertenece a quienes creen<br>en la belleza de sus sueños."</div>
+  <div class="moti-author">— Eleanor Roosevelt</div>
+  <div class="moti-sub">Completa tu Nomad Road Map 🌊</div>
+</div>
+
+</main>
+
+<!-- FLOATING BAR -->
+<div class="fbar" id="fbar">
+  <div class="fbar-inner">
+    <div class="fbar-l"><div class="fbar-lbl">Ingreso Estimado</div><div class="fbar-bd" id="fbarBd">Agrega miembros para comenzar</div></div>
+    <div class="fbar-r"><div class="fbar-usd" id="fbarUsd">$0</div></div>
+  </div>
+  <div class="fbar-prog"><div class="fbar-prog-f" id="fbarProg"></div></div>
+</div>
+
+<footer class="footer">
+  <p>Nomad Road Map · Simulador de Negocios de Membresía de Cruceros</p>
+  <p style="margin-top:3px">Este simulador es solo de referencia. Las recompensas pueden variar.</p>
+</footer>
+
+<script>
+// ── HELPERS ──
+const $=id=>document.getElementById(id);
+const V=id=>(parseFloat($(id).value)||0);
+const fx=()=>1;
+const fmt=n=>'$'+n.toLocaleString('es-ES',{maximumFractionDigits:0});
+const fmtK=n=>fmt(n);
+const FLAGS=['🇰🇷','🇯🇵','🇰🇷','🇺🇸','🇰🇷','🇪🇸','🇰🇷','🇧🇷','🇰🇷','🇸🇬','🇰🇷','🇲🇾','🇰🇷','🇵🇪'];
+
+// ── ACCORDION ──
+function toggleAcc(id){const b=$(id),a=$(id+'-ar');b.classList.toggle('open');if(a)a.classList.toggle('open');
+  // Animate WinWin bars when opening
+  if(id==='wwDiag'&&b.classList.contains('open')){
+    setTimeout(()=>{
+      const bars=b.querySeleccionarorAll('.ww-bar');
+      bars.forEach((bar,i)=>{setTimeout(()=>{bar.style.width='80%'},i*200)});
+    },100);
+  }
+}
+
+// ── PHOTO ──
+function handlePhoto(inp){if(!inp.files||!inp.files[0])return;const r=new FileReader();r.onload=e=>{$('profImg').src=e.target.result;$('profImg').classList.add('has');$('profPh').classList.add('hid')};r.readAsDataURL(inp.files[0])}
+
+// ── TWEAK ──
+function tweak(id,d){const el=$(id);el.value=Math.max(0,(parseInt(el.value)||0)+d);updateAll()}
+
+// ── RANKS ──
+const RANKS=[
+  {name:'RABOD',key:'RBOD',tier:'cr',min:1000000,legCap:.10,minAct:2000000,bonus:305000},
+  {name:'GABOD',key:'GBOD',tier:'cr',min:1000000,legCap:.10,minAct:400000,bonus:180000},
+  {name:'PABOD',key:'PBOD',tier:'cr',min:750000,legCap:.20,minAct:1000000,bonus:155000},
+  {name:'ABOD',key:'ABOD',tier:'di',min:750000,legCap:.20,minAct:300000,bonus:105000},
+  {name:'BOD',key:'BOD',tier:'di',min:550000,legCap:.40,minAct:110000,bonus:55000},
+  {name:'ED',key:'ED',tier:'go',min:250000,legCap:.40,minAct:50000,bonus:25000},
+  {name:'ID',key:'ID',tier:'go',min:100000,legCap:.40,minAct:20000,bonus:10000},
+  {name:'ND',key:'ND',tier:'si',min:50000,legCap:.40,minAct:10000,bonus:5000},
+  {name:'RD',key:'RD',tier:'si',min:25000,legCap:.40,minAct:5000,bonus:2500},
+  {name:'SMD',key:'SMD',tier:'br',min:10000,legCap:.40,minAct:2000,bonus:1000},
+  {name:'MD',key:'MD',tier:'br',min:3000,legCap:.40,minAct:600,bonus:300},
+];
+
+// ── RQP TIERS ──
+const RQP_TIERS=[
+  {min:550000,cap:220000},{min:250000,cap:100000},{min:100000,cap:40000},
+  {min:50000,cap:20000},{min:25000,cap:10000},{min:10000,cap:4000},
+  {min:3000,cap:1200},{min:0,cap:1200}
+];
+function getRqpCap(totalRqp){for(const t of RQP_TIERS)if(totalRqp>=t.min)return t.cap;return 1200}
+
+// ── MAB ──
+function mabPP(type,cnt){
+  if(cnt<3)return 0;
+  if(type==='c'){if(cnt>=10)return 40;if(cnt>=5)return 30;return 20}
+  else{if(cnt>=10)return 100;if(cnt>=5)return 75;return 50}
+}
+
+// ── ADD LEG ──
+let legN=3;
+function addLeg(){legN++;const c=$('legC');const r=document.createElement('div');r.className='leg-r';
+r.innerHTML=`<span class="leg-l">Leg ${legN} <button class="btn-rm" onclic="rmLeg(this)">✕</button></span><select class="leg-rank" onchange="legRankPick(this)"><option value="">Entrada Manual</option><option value="3000">MD $3,000</option><option value="10000">SMD $10,000</option><option value="25000">RD $25,000</option><option value="50000">ND $50,000</option><option value="100000">ID $100,000</option><option value="250000">ED $250,000</option><option value="550000">BOD $550,000</option></select><div class="fg"><label>Ventas ($)</label><input type="number" class="leg-v" min="0" value="0" oninput="updateAll()"></div><div class="leg-gauge"><div class="leg-gauge-fill" style="width:0"></div></div>`;
+c.appendChild(r)}
+function rmLeg(btn){if(document.querySeleccionarorAll('.leg-r').length<=3)return alert('Mínimo 3 piernas requeridas');btn.closest('.leg-r').remove();reIdx()}
+function reIdx(){document.querySeleccionarorAll('.leg-r').forEach((r,i)=>{const l=r.querySelector('.leg-l');if(l)l.childNodes[0].textContent='Leg '+(i+1)+' '});legN=document.querySelectorAll('.leg-r').length}
+
+// ── ELITE TRIP ──
+let eliteChecks=[false,false,false];
+function toggleElite(n){
+  eliteChecks[n-1]=!eliteChecks[n-1];
+  const btn=$('em'+n);
+  btn.classList.toggle('checked',eliteChecks[n-1]);
+  const count=eliteChecks.filter(Boolean).length;
+  $('eliteBar').style.width=(count/3*100)+'%';
+  const dest=$('eliteDest');
+  const msg=$('eliteMsg');
+  if(count===3){
+    msg.textContent='🎉 3 meses consecutivos! ¡Elegible para reservar crucero!';
+    msg.className='elite-msg complete';
+    dest.style.display='block';
+  }else if(count>0){
+    msg.textContent='🔥 '+count+'/3 logrado! '+(3-count)+' meses restantes!';
+    msg.className='elite-msg';
+    dest.style.display='none';
+  }else{
+    msg.textContent='¡Toca los meses que recibiste Bono de Liderazgo!';
+    msg.className='elite-msg';
+    dest.style.display='none';
+  }
+}
+function pickDest(btn,name){
+  document.querySeleccionarorAll('.dest-btn').forEach(b=>b.classList.remove('picked'));
+  btn.classList.add('picked');
+  $('eliteCongrats').textContent='✨ '+name+' — Tu crucero soñado se hará realidad 🚢';
+}
+
+// ── LEG RANK PICKER ──
+function legRankPick(sel){
+  const v=sel.value;
+  if(v){
+    const input=sel.closest('.leg-r').querySeleccionaror('.leg-v');
+    input.value=v;
+  }
+  updateAll();
+}
+
+// ── IMPORT LEGS TO RECURRING ──
+function importLegs(){
+  const legVals=[];
+  document.querySeleccionarorAll('.leg-v').forEach(inp=>legVals.push(parseFloat(inp.value)||0));
+  const recInputs=$('recLegs').querySeleccionarorAll('.rec-leg-v');
+  recInputs.forEach((inp,i)=>{if(i<legVals.length)inp.value=legVals[i]});
+  updateAll();
+}
+
+// ── RESET ──
+function resetAcc(accId){
+  const acc=$(accId);
+  if(!acc)return;
+  acc.querySeleccionarorAll('input[type="number"]').forEach(inp=>{inp.value=0});
+  acc.querySeleccionarorAll('select').forEach(sel=>{sel.selectedIndex=0});
+  updateAll();
+}
+
+// ── MASTER UPDATE ──
+function updateAll(){
+  const f=fx();
+  const c=parseInt($('cCnt').value)||0;
+  const p=parseInt($('pCnt').value)||0;
+  const goalUsd=parseInt($('goalUsd').value)||5000;
+
+  // ① DAB + MAB
+  const dab=c*20+p*50;
+  const cPP=mabPP('c',c),pPP=mabPP('p',p);
+  const cMAB=cPP*c,pMAB=pPP*p,mab=cMAB+pMAB;
+  const bonus1=dab+mab;
+  // Twin display
+  $('cInc').textContent=fmt(c*20);$('pInc').textContent=fmt(p*50);
+  // DAB total display
+  $('dabTotalAmt').textContent=fmt(dab);
+  const dabParts=[];
+  if(c>0)dabParts.push('Classic $20×'+c+'m=$'+(c*20));
+  if(p>0)dabParts.push('Premium $50×'+p+'m=$'+(p*50));
+  // MAB
+  $('mabTotal').textContent=fmt(mab);
+  $('mabCDet').textContent=c>=3?c+'m × $'+cPP+' =':(c>0?c+'miembros (3+ requeridos)':'0');
+  $('mabCAmt').textContent=c>=3?fmt(cMAB):'$0';
+  $('mabPDet').textContent=p>=3?p+'m × $'+pPP+' =':(p>0?p+'miembros (3+ requeridos)':'0');
+  $('mabPAmt').textContent=p>=3?fmt(pMAB):'$0';
+  $('mabTotA').textContent=fmt(mab);
+  // MAB table highlight
+  ['mth1','mth2','mth3','mc1','mc2','mc3','mp1','mp2','mp3'].forEach(id=>$(id).classList.remove('mab-hl'));
+  const cTier=c>=10?3:c>=5?2:c>=3?1:0;
+  const pTier=p>=10?3:p>=5?2:p>=3?1:0;
+  if(cTier>0){$('mth'+cTier).classList.add('mab-hl');$('mc'+cTier).classList.add('mab-hl')}
+  if(pTier>0){$('mth'+pTier).classList.add('mab-hl');$('mp'+pTier).classList.add('mab-hl')}
+  // Combined DAB+MAB total
+  $('dmtAmt').textContent=fmt(bonus1);
+  $('dmtDetail').textContent=bonus1>0?'Daily '+fmt(dab)+' + Monthly '+fmt(mab):'';
+  $('prev1').textContent=fmt(bonus1);
+
+  // ② Matching
+  const pDABv=V('pDAB'),pMABv=V('pMAB');
+  const matchW=pDABv; // weekly
+  const matchM=pMABv; // monthly (semana con día 8)
+  const bonus2=matchW+matchM;
+  $('matchAmt').textContent=fmt(bonus2);
+  $('prev2').textContent=fmt(bonus2);
+
+  // ③ Leadership
+  const legs=[];
+  document.querySeleccionarorAll('.leg-r').forEach(r=>{
+    legs.push({
+      v:parseFloat(r.querySeleccionaror('.leg-v').value)||0,
+      row:r
+    });
+  });
+  const totalTeam=legs.reduce((s,l)=>s+l.v,0);
+  // Leg total display
+  $('legTotalV').textContent=fmt(totalTeam);
+
+  let curRank=null,bonus3=0,actMet=true;
+  const tAct=parseInt($('teamAct').value)||0;
+  const sortedLegs=[...legs].sort((a,b)=>b.v-a.v);
+  
+  // Find actual rank based on eligible production (40% cap per rank)
+  let eligProd=0;
+  for(const r of RANKS){
+    const capAmt=totalTeam*r.legCap;
+    const capped=sortedLegs.map(l=>totalTeam>0?Math.min(l.v,capAmt):l.v);
+    const elig=capped.reduce((s,v)=>s+v,0);
+    if(elig>=r.min){
+      curRank=r;
+      eligProd=elig;
+      if(tAct>=r.minAct){bonus3=r.bonus;actMet=true}
+      else if(tAct===0){bonus3=0;actMet=false}
+      else if(tAct>=600&&r.min>=10000){bonus3=Math.round(r.bonus*.5);actMet=false}
+      else{bonus3=0;actMet=false}
+      break;
+    }
+  }
+  if(!curRank&&totalTeam>0){
+    // Not reaching any rank, calc eligible with MD 40% cap
+    const capAmt=totalTeam*.4;
+    eligProd=sortedLegs.map(l=>Math.min(l.v,capAmt)).reduce((s,v)=>s+v,0);
+  }
+
+  // Gauge bars (based on current rank's cap or default 40%)
+  const curCap=curRank?curRank.legCap:.4;
+  const capAmt=totalTeam>0?totalTeam*curCap:0;
+  legs.forEach(l=>{
+    const gauge=l.row.querySeleccionaror('.leg-gauge-fill');
+    if(capAmt>0){
+      const pct=Math.min(100,l.v/capAmt*100);
+      gauge.style.width=pct+'%';
+      gauge.classList.toggle('over',l.v>capAmt);
+    }else{gauge.style.width='0%';gauge.classList.remove('over')}
+  });
+  // Feedback
+  const fb=$('legFB');
+  if(totalTeam>0&&curRank){
+    const nextR=RANKS[RANKS.indexOf(curRank)-1];
+    if(nextR){fb.innerHTML='💡 Actual: '+curRank.name+'! '+nextR.name+' → Necesitas  '+fmt(nextR.min-eligProd)+'  more. Próximo bono '+fmt(nextR.bonus)+'';fb.className='leg-feedback show tip'}
+    else{fb.innerHTML='🎉 ¡Rango máximo alcanzado!';fb.className='leg-feedback show tip'}
+  }else if(totalTeam>0){
+    const needed=3000-eligProd;
+    fb.innerHTML='💡 MD → Necesitas  '+fmt(needed)+'  más para MD. Bonus $300';
+    fb.className='leg-feedback show tip';
+  }else{fb.className='leg-feedback'}
+  $('leadAmt').textContent=fmt(bonus3);
+  $('leadRank').textContent=curRank?(curRank.name+(actMet?' ✅ 100%':(bonus3>0?' ⚠️ 50% (Volumen de Activación Bajo)':' ❌ Sin Bono (Vol. Activación Not Met)'))):'Rango Insuficiente';
+  $('leadElig').textContent=totalTeam>0?'Producción Calificada: '+fmt(Math.round(eligProd))+' / Total Piernas: '+fmt(totalTeam):'';
+  $('prev3').textContent=fmt(bonus3);
+  // Rank table highlight — based on ACTUAL eligible production rank
+  populateRanks(goalUsd, curRank);
+
+  // ⑤ Base Constructor (calculate first for recurring multiplier)
+  const bbS=V('bbSales');
+  const qbiV=Math.min(100,Math.max(0,V('qbi')));
+  let bbPct=0;
+  if(bbS>=30000)bbPct=.30;else if(bbS>=10000)bbPct=.10;else if(bbS>=5000)bbPct=.05;
+  let bbRaw=Math.round(bbS*bbPct);
+  const bonus5=qbiV>=65?bbRaw:Math.round(bbRaw*qbiV/100);
+  $('bbAmt').textContent=fmt(bonus5);
+  $('bbInfo').textContent=bbPct>0?(fmt(bbS)+' × '+(bbPct*100)+'% = '+fmt(bbRaw)+(qbiV<65?' × QBI '+qbiV+'% = '+fmt(bonus5):' (QBI '+qbiV+'% ✅)')):'$5,000+ requeridos';
+  $('prev5').textContent=fmt(bonus5);
+
+  // Recurring multiplier (based on BB bonus)
+  let recMulti=5;
+  if(bonus5>=30000)recMulti=9;
+  else if(bonus5>=23000)recMulti=8;
+  else if(bonus5>=16000)recMulti=7;
+  else if(bonus5>=9000)recMulti=6;
+  // TODO: $30,000+ & ID team → $10
+
+  // ④ Recurring (RQP) - top-down tier matching
+  // Sync recurring leg inputs with ③ leg count
+  const recLegsDiv=$('recLegs');
+  const curRecInputs=recLegsDiv.querySeleccionarorAll('.rec-leg-fg');
+  if(curRecInputs.length!==legs.length){
+    recLegsDiv.innerHTML=legs.map((_,i)=>`<div class="rec-leg-fg fg" style="margin-bottom:4px"><label>Leg ${i+1} Recurring ($)</label><input type="number" class="rec-leg-v" min="0" value="${curRecInputs[i]?curRecInputs[i].querySeleccionaror('input').value:'0'}" oninput="updateAll()"></div>`).join('');
+  }
+  const myRec=V('myRec');
+  const recLegVals=[];
+  recLegsDiv.querySeleccionarorAll('.rec-leg-v').forEach(inp=>recLegVals.push(parseFloat(inp.value)||0));
+
+  // Top-down: try highest tier first, confirm if capped total >= tier min
+  let rqpCap=1200, rqpTotal=0, rqpWasted=0, rqpTierMin=0;
+  for(const tier of RQP_TIERS){ // highest first
+    const cap=tier.cap;
+    let total=myRec;
+    recLegVals.forEach(v=>{total+=Math.min(v,cap)});
+    if(total>=tier.min){
+      rqpCap=cap;
+      rqpTotal=total;
+      rqpTierMin=tier.min;
+      rqpWasted=recLegVals.reduce((s,v)=>s+Math.max(0,v-cap),0);
+      break;
+    }
+  }
+  // If no tier matched, use lowest cap
+  if(rqpTotal===0&&(myRec>0||recLegVals.some(v=>v>0))){
+    rqpCap=1200;
+    rqpTotal=myRec;
+    recLegVals.forEach(v=>{
+      rqpTotal+=Math.min(v,1200);
+      rqpWasted+=Math.max(0,v-1200);
+    });
+  }
+
+  const bonus4=Math.round(rqpTotal/100*recMulti*100)/100;
+  $('recAmt').textContent=fmt(bonus4);
+  $('rqpInfo').textContent=rqpTotal>0?'Producción Calificada '+fmt(rqpTotal)+' ('+fmt(rqpTierMin)+' Tier) × $'+recMulti+'/100 | máx. por pierna '+fmt(rqpCap):'';
+  // RQP jump hint
+  const rqpFB=$('rqpFB');
+  let rqpMsgs=[];
+  if(rqpWasted>0){
+    rqpMsgs.push('⚠️ Exceso '+fmt(rqpWasted)+' excluidos — crece otros equipos para maximizar ingresos!');
+  }
+  // Find next higher tier
+  const curTierIdx=RQP_TIERS.findIndex(t=>t.min===rqpTierMin);
+  const nextTier=curTierIdx>0?RQP_TIERS[curTierIdx-1]:null;
+  if(nextTier&&rqpTotal>0){
+    let nextTotal=myRec;
+    recLegVals.forEach(v=>{nextTotal+=Math.min(v,nextTier.cap)});
+    const gap=nextTier.min-nextTotal;
+    if(gap>0){
+      rqpMsgs.push('💡 '+fmt(gap)+'más para alcanzar '+fmt(nextTier.min)+' Tier! máx. por pierna '+fmt(rqpCap)+' → '+fmt(nextTier.cap)+' ( →  ¡aumento de ingresos!)');
+    }else{
+      rqpMsgs.push('💡 Balance your teams for '+fmt(nextTier.min)+' tier possible! Max per leg '+fmt(nextTier.cap));
+    }
+  }
+  if(rqpMsgs.length>0){
+    rqpFB.innerHTML=rqpMsgs.join('<br>');
+    rqpFB.className='leg-feedback show '+(rqpWasted>0?'warn':'tip');
+  }else{rqpFB.className='leg-feedback'}
+  // Multiplicador info
+  $('recMultiInfo').textContent='Multiplicador Actual: por $100 $'+recMulti+(recMulti>5?' (Base Constructor '+fmt(bonus5)+' linked 🔥)':' (Base)');
+  $('prev4').textContent=fmt(bonus4);
+
+  // INCENTIVES
+  // 💳 Free miembroship: directo production >= $500
+  const directoProd=c*200+p*500;
+  const freeEl=$('incFree');
+  const freeSt=$('incFreeStatus');
+  if(directoProd>=500){
+    freeSt.textContent='✅ ¡Logrado! Month $100 suscripción exenta + 200 puntos';
+    freeSt.className='inc-status achieved';
+    freeEl.classList.add('done');
+  }else if(directoProd>0){
+    const need=500-directoProd;
+    freeSt.textContent='⏳ $'+need+' más necesario (Current $'+directoProd+')';
+    freeSt.className='inc-status not-yet';
+    freeEl.classList.remove('done');
+  }else{
+    freeSt.textContent='';freeSt.className='inc-status';freeEl.classList.remove('done');
+  }
+  // 🚀 Fast start
+  let fastBonus=0;
+  const fastOn=$('fastOn').checked;
+  const joinVal=$('joinMonth').value;
+  const fastEl=$('incFast');
+  const fastSt=$('incFastStatus');
+  fastEl.classList.toggle('off',!fastOn);
+  if(!fastOn){
+    fastSt.textContent='N/A';
+    fastSt.className='inc-status not-yet';
+    fastEl.classList.remove('done');
+  }else if(joinVal){
+    const [jy,jm]=joinVal.split('-').map(Number);
+    const fecha límite=new Date(jm===12?jy+1:jy,jm===12?1:jm+1,0); // fin del próximo mes
+    const now=new Date();
+    if(now<=fecha límite){
+      if(directoProd>=3000){
+        fastBonus=200;
+        fastSt.textContent='🎉 Fast Start ¡Logrado! $200 Bonus added!';
+        fastSt.className='inc-status achieved';
+        fastEl.classList.add('done');
+      }else{
+        fastSt.textContent='⏳ Necesitas $'+(3000-directoProd)+' more ('+fecha límite.toLocaleDateString('es-ES')+'  fecha límite)';
+        fastSt.className='inc-status not-yet';
+        fastEl.classList.remove('done');
+      }
+    }else{
+      fastSt.textContent='⏰ Expirado ('+fecha límite.toLocaleDateString('es-ES')+')';
+      fastSt.className='inc-status not-yet';
+      fastEl.classList.remove('done');
+    }
+  }else{fastSt.textContent='';fastSt.className='inc-status';fastEl.classList.remove('done')}
+
+  // TOTAL
+  const total=bonus1+bonus2+bonus3+bonus4+bonus5+fastBonus;
+  updateBuilding(c,p);
+  updateFloat(total,dab,mab,bonus2,bonus3,bonus4,bonus5,fastBonus);
+}
+
+// ── RANK TABLE ──
+function populateRanks(goalUsd, actualRank){
+  // Goal: first rank whose bonus >= goal (USD)
+  let goalIdx=-1;
+  const data=[...RANKS].reverse(); // MD first (index 0)
+  for(let i=0;i<data.length;i++){
+    if(data[i].bonus>=goalUsd){goalIdx=i;break}
+  }
+  if(goalIdx===-1)goalIdx=data.length-1;
+  // Actual: which rank was achieved by eligible production
+  let actIdx=-1;
+  if(actualRank){actIdx=data.findIndex(r=>r.key===actualRank.key)}
+  const tierCls={br:'rk-br',si:'rk-si',go:'rk-go',di:'rk-di',cr:'rk-cr'};
+  $('rankBody').innerHTML=data.map((r,i)=>{
+    let cls='';
+    if(i===actIdx)cls='hl';
+    else if(i===goalIdx&&actIdx===-1)cls='hl-goal';
+    return `<tr class="${cls}">
+      <td><span class="rk-badge ${tierCls[r.tier]}">${r.name}</span></td>
+      <td class="td-p">${fmt(r.min)}</td>
+      <td>${(r.legCap*100).toFixed(0)}%</td>
+      <td class="td-a">${fmt(r.minAct)}</td>
+      <td class="td-b">${fmt(r.bonus)}</td>
+    </tr>`}).join('');
+  // Message
+  const goalTarget=data[goalIdx];
+  let msg='🎯 Goal '+fmt(goalUsd)+' → <strong>'+goalTarget.name+'</strong> Rango necesario!';
+  if(actualRank){
+    msg+=' | Actual: <strong style="color:var(--red)">'+actualRank.name+'</strong> (Bonus '+fmt(actualRank.bonus)+')';
+  }
+  $('rankMsg').innerHTML=msg;
+  $('rankMsg').style.display='block';
+}
+
+// ── BUILDING ──
+let prevFC=0;
+function updateBuilding(c,p){
+  const total=c+p;
+  const tower=$('bldTower'),roof=$('bldRoof'),flag=$('bldFlag'),scene=$('bldScene');
+  $('bldFloors').textContent=total+'F';
+  const floors=[];
+  for(let i=0;i<c;i++)floors.push('cf');
+  for(let i=0;i<p;i++)floors.push('pf');
+  tower.querySeleccionarorAll('.bf').forEach(f=>f.remove());
+  tower.querySeleccionaror('.bld-empty')?.remove();
+  if(total===0){
+    roof.className='bld-roof';flag.classList.remove('vis');
+    const e=document.createElement('div');e.className='bld-empty';
+    e.innerHTML='<span class="bld-empty-ic">🏗️</span>¡Agrega miembros<br>para construir más alto!';
+    tower.appendChild(e);scene.style.height='180px';prevFC=0;return;
+  }
+  scene.style.height=Math.min(Math.max(180,36+total*22+24),450)+'px';
+  floors.forEach((type,i)=>{
+    const fl=document.createElement('div');fl.className='bf '+type;
+    if(i>=prevFC)fl.style.animationDelay=((i-prevFC)*.06)+'s';else fl.style.animation='none';
+    const fi=(i*4)%FLAGS.length;
+    fl.innerHTML='<div class="bf-w"><div class="bw">'+FLAGS[fi%FLAGS.length]+'</div><div class="bw">'+FLAGS[(fi+1)%FLAGS.length]+'</div><div class="bw">'+FLAGS[(fi+2)%FLAGS.length]+'</div><div class="bw">'+FLAGS[(fi+3)%FLAGS.length]+'</div></div>'+((i+1)%5===0||i===total-1?'<span class="bf-n">'+(i+1)+'F</span>':'');
+    tower.insertBefore(fl,roof);
+  });
+  roof.className='bld-roof vis';
+  const goalTarget=parseInt($('goalUsd').value)||5000;
+  const prod=c*200+p*500;
+  flag.classList.toggle('vis',prod>=goalTarget);
+  prevFC=total;
+}
+
+// ── FLOATING BAR ──
+let fbVis=false;
+function updateFloat(total,dab,mab,b2,b3,b4,b5,fb){
+  const bar=$('fbar');
+  if(total>0&&!fbVis){bar.classList.add('vis');document.body.classList.add('has-fb');fbVis=true}
+  else if(total===0&&fbVis){bar.classList.remove('vis');document.body.classList.remove('has-fb');fbVis=false}
+  $('fbarUsd').textContent=fmt(total);
+  const parts=[];
+  if(dab>0)parts.push('Daily $'+dab);if(mab>0)parts.push('Monthly $'+mab);
+  if(b2>0)parts.push('Match $'+b2);if(b3>0)parts.push('Leadership $'+b3);
+  if(b4>0)parts.push('Recurring $'+b4);if(b5>0)parts.push('Builder $'+b5);
+  if(fb>0)parts.push('FastStart $'+fb);
+  $('fbarBd').textContent=parts.length?parts.join(' + '):'Agrega miembros para comenzar';
+  const goalTarget=parseInt($('goalUsd').value)||5000;
+  $('fbarProg').style.width=Math.min(100,Math.round(total/goalTarget*100))+'%';
+}
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  updateAll();
+  document.querySeleccionarorAll('input[type="number"]').forEach(el=>el.addEventListener('input',()=>setTimeout(updateAll,10)));
+});
+</script>
+</body>
+</html>
